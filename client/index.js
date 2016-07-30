@@ -8,6 +8,7 @@ import store from './store/configStore'
 import Root from './containers/Root'
 import Home from './containers/Home'
 import Dashboard from './containers/Dashboard'
+import ProfilePage from './containers/ProfilePage'
 import Login from './containers/Login'
 import SignUp from './containers/SignUp'
 import ComingSoon from './containers/ComingSoon'
@@ -19,6 +20,7 @@ ReactDOM.render(
             <Route path='/' component={Root}>
                 <IndexRoute component={Home} />
                 <Route path='dashboard' component={Dashboard} />
+                <Route path='user/:user' component={ProfilePage} />
                 <Route path='login' component={Login} />
                 <Route path='signup' component={SignUp} />
                 <Route path='landing' component={ComingSoon} />
