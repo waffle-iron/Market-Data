@@ -3,10 +3,7 @@
 ln -s /vagrant/* ~/.
 
 sudo apt-get update
-# npm has a lot of dependencies, including 'nodejs'
-sudo apt-get install -y npm
-# Get more deps
-#npm install
+# sudo apt-get install -y npm
 
 export DEBIAN_FRONTEND=noninteractive
 PG_VERSION=9.4
@@ -53,16 +50,17 @@ sudo -u postgres psql -c "ALTER USER $APP_DB_USER CREATEDB;"
 # Prepping the db with the schema
 DB_SCHEMA=first_md_schema
 sudo -u postgres psql $APP_DB_NAME -f /vagrant/schema/schema.sql
-sudo -u postgres psql $APP_DB_NAME -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA $APP_DB_USER TO $APP_DB_USER";
+sudo -u postgres psql $APP_DB_NAME -c "GRANT USAGE ON SCHEMA public TO $APP_DB_USER";
+sudo -u postgres psql $APP_DB_NAME -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO $APP_DB_USER";
 
 echo "Your PostgreSQL database has been setup and can be accessed on your local machine on the forwarded port (default: 15432)"
 echo "Host: localhost"
 echo "Port: 15432"
 printf "Database: $APP_DB_NAME\n  Username: $APP_DB_USER\n  Password: $APP_DB_PASS\n"
-printf "Admin access to postgres user via VM:\n  vagrant ssh\n  sudo -u postgres\n"
-printf "psql access to app database user via VM:\n  vagrant ssh\n  sudo -u postgres"
-printf "  PGUSER=$APP_DB_USER PGPASSWORD=$APP_DB_PASS psql -h localhost $APP_DB_NAME\n"
+printf "Admin access to postgres user via VM:\n  vagrant ssh\n  sudo -i -u postgres\n"
+printf "psql access to app database user via VM:\n  vagrant ssh\n  sudo -u postgres bash -c "
+printf "\"export PGUSER=$APP_DB_USER; export PGPASSWORD=$APP_DB_PASS; psql -h localhost $APP_DB_NAME\"\n"
 echo "Env variable for application development:"
 printf "  DATABASE_URL=postgresql://$APP_DB_USER:$APP_DB_PASS@localhost:15432/$APP_DB_NAME\n"
 echo "Local command to access the database via psql:"
-echo "  PGUSER=$APP_DB_USER PGPASSWORD=$APP_DB_PASS psql -h localhost -p 15432 $APP_DB_NAME"
+echo "  export PGUSER=$APP_DB_USER; export PGPASSWORD=$APP_DB_PASS; psql -h localhost -p 15432 $APP_DB_NAME"
