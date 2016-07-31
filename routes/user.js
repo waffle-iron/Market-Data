@@ -12,7 +12,7 @@ router.get('/:username', (req, res) => {
     .catch(error => res.send(error))
 })
 
-router.post('/user/create', (req, res) => {
+router.post('/create', (req, res) => {
     res.send('Creating user with details:', req.body)
 })
 
