@@ -65,3 +65,23 @@ echo "Env variable for application development:"
 printf "  DATABASE_URL=postgresql://$APP_DB_USER:$APP_DB_PASS@localhost:15432/$APP_DB_NAME\n"
 echo "Local command to access the database via psql:"
 echo "  export PGUSER=$APP_DB_USER; export PGPASSWORD=$APP_DB_PASS; psql -h localhost -p 15432 $APP_DB_NAME"
+
+# Create Knex connection config with generated details
+cat <<EOF > config.json
+{
+    "knex" : {
+        "client": "pg",
+        "connection": {
+            "host": "127.0.0.1",
+            "port": "15432",
+            "user": "$APP_DB_USER",
+            "password": "$APP_DB_PASS",
+            "database": "$APP_DB_NAME",
+            "charset": "UTF8"
+        }
+    }
+}
+EOF
+
+echo "Files generated:"
+echo "  config.json with Knex connection details"
