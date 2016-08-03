@@ -1,12 +1,13 @@
 import React from 'react'
 
+import Input from '../atoms/Input'
 import Btn from '../atoms/Btn'
 
 const StockForm = (props) => {
     return (
         <div>
             <form onSubmit={props.onSubmit}>
-                <input type='text' onChange={props.onChange}
+                <Input type='text' onChange={props.onChange}
                     value={props.value} />
                 <Btn text='Search' />
             </form>

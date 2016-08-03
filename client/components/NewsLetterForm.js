@@ -10,8 +10,8 @@ const NewsLetterForm = (props) => {
     return (
         <div styleName='root'>
             <form onSubmit={props.onSubmit}>
-                <Input type='text' name='name' onChange={props.onChange} />
-                <Input type='email' name='email' onChange={props.onChange} />
+                <Input type='email' name='email' placeholder='Email'
+                    onChange={props.onChange} />
                 <Btn text='Click Me' />
             </form>
         </div>

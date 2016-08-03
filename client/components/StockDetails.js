@@ -10,11 +10,11 @@ const StockDetails = (props) => {
                 <h6>{ props.LastPrice } &nbsp; { props.Change }</h6>
             </span>
             <span>
-                <a onClick={props.onBuy}>Buy</a>
+                <a onClick={props.onClick} value='buy'>Buy</a>
                 &nbsp;
-                <a onClick={props.onSell}>Sell</a>
+                <a onClick={props.onClick} value='sell'>Sell</a>
                 &nbsp;
-                <a onClick={props.onWatch}>Watch</a>
+                <a onClick={props.onClick} value='watch'>Watch</a>
             </span>
         </div>
     )

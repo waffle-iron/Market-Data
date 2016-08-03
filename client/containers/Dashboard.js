@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import CSSModules from 'react-css-modules'
 
 import { getStockQuote } from '../actions/stockActions'
 
 import StockForm from '../components/StockForm'
 import StockDetails from '../components/StockDetails'
+import Loader from '../atoms/Loader'
+
+import Style from '../styles/containers/Dashboard'
 
 class Dashboard extends Component {
     constructor(props) {
@@ -42,11 +46,11 @@ class Dashboard extends Component {
         const { quoteData } = this.props
 
         return (
-            <div>
+            <div styleName='root'>
                 <h3>Stock Data</h3>
                 <StockForm onSubmit={this.handleSubmit}
                     onChange={this.handleChange} value={stockSymbol} />
-                { isLoading ? '' : <StockDetails {...quoteData} /> }
+                { isLoading ? <Loader /> : <StockDetails {...quoteData} /> }
             </div>
         )
     }
@@ -57,4 +61,4 @@ const mapStateToProps = (state) => {
     return { quoteData }
 }
 
-export default connect(mapStateToProps)(Dashboard)
+export default connect(mapStateToProps)(CSSModules(Dashboard, Style))

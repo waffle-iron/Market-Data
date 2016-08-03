@@ -11,4 +11,4 @@ const Input = (props) => {
     )
 }
 
-export default Input
+export default CSSModules(Input, Style)
