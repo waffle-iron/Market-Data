@@ -30,7 +30,7 @@
 
 .avatar {
     animation: bounce cubic-bezier(0.19,1.0,0.22,1.0) 1.5s alternate infinite;
-    -webkit-animation: bounce cubic-bezier(0.19,1.0,0.22,1.0) 1.5s alternate infinite;
+    -webkit-animation: bounce cubic-bezier(0.19,1.0,0.22,1.0) 1.0s alternate infinite;
     border: #ECEFF2 solid 7px;
     border-radius: 50%;
     box-shadow: 0px 1px 0px rgba(0,0,0,0.25);
