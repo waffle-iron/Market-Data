@@ -1,12 +1,12 @@
 CREATE SEQUENCE id_sequence;
 CREATE OR REPLACE FUNCTION id_generator(
-    out new_id bigint
+    out new_id BIGINT
 ) AS $$
 DECLARE
-    our_epoch bigint := 1072915200000;
-    seq_id bigint;
-    now_ms bigint;
-    shard_id int := 1;
+    our_epoch BIGINT := 1072915200000;
+    seq_id BIGINT;
+    now_ms BIGINT;
+    shard_id INT := 1;
 BEGIN
     SELECT NEXTVAL('id_sequence') % 1024 INTO seq_id;
     SELECT FLOOR(EXTRACT(EPOCH FROM now()) * 1000) INTO now_ms;
@@ -36,7 +36,6 @@ CREATE TABLE user_profiles (
     id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
     user_id BIGINT REFERENCES users(id) UNIQUE NOT NULL,
     username TEXT REFERENCES users(username) UNIQUE NOT NULL,
-    -- latest_trades 
     avatar TEXT DEFAULT 'https://puu.sh/qlsJY/72d9b9920c.jpg'
 );
 
