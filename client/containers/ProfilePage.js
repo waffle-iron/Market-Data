@@ -17,15 +17,28 @@ class ProfilePage extends Component {
 
         dispatch(getUserProfile(params.user))
     }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps !== this.props) {
+            this.setState({
+                loading: false
+            })
+        }
+    }
     render() {
-        const { params } = this.props
+        const { loading } = this.state
+        const { params, profileData } = this.props
 
         return (
             <div>
-                Profile Page For { params.user }
+                { loading ? 'LOADING...' : <img src={profileData.avatar} />}
             </div>
         )
     }
 }
 
-export default connect()(ProfilePage)
+const mapStateToProps = (state) => {
+    const { profileData } = state.user
+    return { profileData }
+}
+
+export default connect(mapStateToProps)(ProfilePage)

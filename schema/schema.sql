@@ -28,7 +28,16 @@ CREATE TABLE users (
     date_created TIMESTAMP DEFAULT now() NOT NULL,
     date_updated TIMESTAMP DEFAULT now() NOT NULL,
     date_deleted TIMESTAMP DEFAULT NULL,
-    status VARCHAR(10) DEFAULT 'active'
+    status VARCHAR(10) DEFAULT 'active',
+    verified BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE user_profiles (
+    id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
+    user_id BIGINT REFERENCES users(id) UNIQUE NOT NULL,
+    username TEXT REFERENCES users(username) UNIQUE NOT NULL,
+    -- latest_trades 
+    avatar TEXT DEFAULT 'https://puu.sh/qlsJY/72d9b9920c.jpg'
 );
 
 CREATE TABLE user_sessions (
