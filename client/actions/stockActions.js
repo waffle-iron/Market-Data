@@ -4,6 +4,10 @@ const axiosConfig = {
     baseURL: 'http://localhost:8080/'
 }
 
+export const isFetching = (bool) => {
+    return { type: 'FETCHING_STOCK_DATA', payload: bool }
+}
+
 const getStockQuoteSuccess = (payload) => {
     return { type: 'GET_STOCK_QUOTE_DATA', payload }
 }

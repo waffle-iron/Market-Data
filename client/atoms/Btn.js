@@ -1,6 +1,8 @@
 import React from 'react'
 import CSSModules from 'react-css-modules'
 
+import Style from '../styles/atoms/Btn'
+
 const Btn = (props) => {
     return (
         <button onClick={props.onClick}>
@@ -9,4 +11,4 @@ const Btn = (props) => {
     )
 }
 
-export default Btn
+export default CSSModules(Btn, Style)
