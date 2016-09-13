@@ -20,10 +20,10 @@ LANGUAGE PLPGSQL;
 CREATE TABLE users (
     id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
     username VARCHAR(35) UNIQUE NOT NULL,
-    first_name VARCHAR(155),
-    last_name VARCHAR(155),
+    first_name VARCHAR(25),
+    last_name VARCHAR(25),
     birth_date TIMESTAMP DEFAULT NULL,
-    email VARCHAR(55) UNIQUE NOT NULL,
+    email VARCHAR(65) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     date_created TIMESTAMP DEFAULT now() NOT NULL,
     date_updated TIMESTAMP DEFAULT now() NOT NULL,
@@ -44,6 +44,12 @@ CREATE TABLE user_sessions (
     user_id BIGINT REFERENCES users(id) NOT NULL,
     login_time TIMESTAMP NOT NULL,
     last_seen_time TIMESTAMP NOT NULL
+);
+
+CREATE TABLE beta_signups (
+    email VARCHAR(65) UNIQUE NOT NULL,
+    date_created TIMESTAMP DEFAULT now() NOT NULL,
+    verified BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE portfolios (
