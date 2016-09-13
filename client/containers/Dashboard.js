@@ -4,6 +4,7 @@ import CSSModules from 'react-css-modules'
 
 import { getStockQuote } from '../actions/stockActions'
 
+import PortfolioSummary from '../components/PortfolioSummary'
 import StockForm from '../components/StockForm'
 import StockDetails from '../components/StockDetails'
 import Loader from '../atoms/Loader'
@@ -20,7 +21,7 @@ class Dashboard extends Component {
         }
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps) {
+        if (nextProps !== this.props) {
             this.setState({
                 isLoading: false
             })
@@ -51,6 +52,7 @@ class Dashboard extends Component {
                 <StockForm onSubmit={this.handleSubmit}
                     onChange={this.handleChange} value={stockSymbol} />
                 { isLoading ? '' : <StockDetails {...quoteData} /> }
+                <PortfolioSummary />
             </div>
         )
     }
