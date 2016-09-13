@@ -7,13 +7,14 @@ const StockDetails = (props) => {
                 <h5>{ props.Symbol }  {props.Name}</h5>
             </span>
             <span>
-                <h6>{ props.LastPrice } &nbsp; { props.Change }</h6>
+                <h6>
+                    { props.LastPrice.toFixed(2) } &nbsp;
+                    { props.Change.toFixed(2) }
+                </h6>
             </span>
             <span>
-                <a onClick={props.onClick} value='buy'>Buy</a>
-                &nbsp;
-                <a onClick={props.onClick} value='sell'>Sell</a>
-                &nbsp;
+                <a onClick={props.onClick} value='buy'>Buy</a> &nbsp;
+                <a onClick={props.onClick} value='sell'>Sell</a> &nbsp;
                 <a onClick={props.onClick} value='watch'>Watch</a>
             </span>
         </div>

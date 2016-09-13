@@ -28,7 +28,7 @@ class Dashboard extends Component {
     }
     handleChange = (e) => {
         this.setState({
-            stockSymbol: e.target.value
+            stockSymbol: e.target.value.toUpperCase()
         })
     }
     handleSubmit = (e) => {
@@ -36,7 +36,7 @@ class Dashboard extends Component {
         const { dispatch } = this.props
         e.preventDefault()
 
-        dispatch(getStockQuote(stockSymbol.toUpperCase()))
+        dispatch(getStockQuote(stockSymbol))
         this.setState({
             stockSymbol: ''
         })
@@ -50,7 +50,7 @@ class Dashboard extends Component {
                 <h3>Stock Data</h3>
                 <StockForm onSubmit={this.handleSubmit}
                     onChange={this.handleChange} value={stockSymbol} />
-                { isLoading ? <Loader /> : <StockDetails {...quoteData} /> }
+                { isLoading ? '' : <StockDetails {...quoteData} /> }
             </div>
         )
     }

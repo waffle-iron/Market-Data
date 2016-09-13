@@ -3,7 +3,7 @@ import React from 'react'
 const HomePageHero = (props) => {
     return (
         <div>
-            Awesome Stuff
+            Awesome Stuff About Us
         </div>
     )
 }
