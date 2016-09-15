@@ -12,15 +12,15 @@ router.get('/:symbol', (req, res) => {
     })
 })
 
-router.post('/:symbol/watch', (req, res) => {
+router.post('/watch/:symbol', (req, res) => {
     res.send('You are now watching:', req.params.symbol)
 })
 
-router.post('/:symbol/buy', (req, res) => {
+router.post('/buy/:symbol', (req, res) => {
     res.send('You just bought:', req.params.symbol)
 })
 
-router.post('/:symbol/sell', (req, res) => {
+router.post('/sell/:symbol', (req, res) => {
     res.send('You just sold:', req.params.symbol)
 })
 
