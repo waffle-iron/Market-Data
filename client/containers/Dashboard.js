@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { create } from 'guid'
 import CSSModules from 'react-css-modules'
 
 import { getStockQuote } from '../actions/stockActions'
@@ -7,7 +8,7 @@ import { getStockQuote } from '../actions/stockActions'
 import PortfolioSummary from '../components/PortfolioSummary'
 import StockForm from '../components/StockForm'
 import StockDetails from '../components/StockDetails'
-import Loader from '../atoms/Loader'
+import NavTab from '../atoms/NavTab'
 
 import Style from '../styles/containers/Dashboard'
 
@@ -17,7 +18,8 @@ class Dashboard extends Component {
 
         this.state = {
             isLoading: true,
-            stockSymbol: ''
+            stockSymbol: '',
+            view: 'portfolio'
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -32,6 +34,12 @@ class Dashboard extends Component {
             stockSymbol: e.target.value.toUpperCase()
         })
     }
+    handleTab = (e) => {
+        console.log(e.target.value)
+        this.setState({
+            view: e.target.value
+        })
+    }
     handleSubmit = (e) => {
         const { stockSymbol } = this.state
         const { dispatch } = this.props
@@ -43,8 +51,13 @@ class Dashboard extends Component {
         })
     }
     render() {
-        const { isLoading, stockSymbol } = this.state
+        const { isLoading, stockSymbol, view } = this.state
         const { quoteData } = this.props
+        const tabValues = [
+            { name: 'Trades', value: 'trades' },
+            { name: 'Portfolio', value: 'portfolio' },
+            { name: 'Watchlist', value: 'watchlist' }
+        ]
 
         return (
             <div styleName='root'>
@@ -53,6 +66,11 @@ class Dashboard extends Component {
                     onChange={this.handleChange} value={stockSymbol} />
                 { isLoading ? '' : <StockDetails {...quoteData} /> }
                 <PortfolioSummary />
+                <ul styleName='tab-list'>
+                    { tabValues.map(tab => <NavTab {...tab}
+                            key={create().value} onClick={this.handleTab}
+                            isActive={view === tab.value} />) }
+                </ul>
             </div>
         )
     }

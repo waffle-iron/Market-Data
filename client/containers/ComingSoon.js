@@ -11,7 +11,6 @@ class ComingSoon extends Component {
         super(props)
 
         this.state = {
-            name: '',
             email: ''
         }
     }

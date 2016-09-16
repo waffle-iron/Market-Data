@@ -1,8 +1,6 @@
 import React from 'react'
 import CSSModules from 'react-css-modules'
 
-import Btn from '../atoms/Btn'
-
 import Style from '../styles/components/PortfolioSummary'
 
 const PortfolioSummary = (props) => {
@@ -15,9 +13,6 @@ const PortfolioSummary = (props) => {
                 <li styleName='info-item'># of trades last month: 10</li>
                 <li styleName='info-item'>Profits last month: $17,287</li>
             </ul>
-            <Btn text="View Trades" />
-            <Btn text="View Portfolio" />
-            <Btn text="View Watchlist" />
         </div>
     )
 }
