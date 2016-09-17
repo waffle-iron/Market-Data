@@ -2,8 +2,8 @@
 @value White from Palette;
 
 @font-face {
-    font-family: 'Lato';
-    src: url(https://fonts.googleapis.com/css?family=Lato);
+    font-family: 'Arimo';
+    src: url('../../assets/fonts/Arimo/Arimo-Regular.ttf') format('truetype');
 }
 
 body {
@@ -15,5 +15,5 @@ a {
 }
 
 a, p, div, span {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Arimo', sans-serif;
 }
