@@ -63,7 +63,7 @@ CREATE TABLE portfolios (
     status VARCHAR(10) DEFAULT 'active'
 );
 
-CREATE TABLE watchlist (
+CREATE TABLE watchlists (
     id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
     user_id BIGINT REFERENCES users(id) NOT NULL,
     name VARCHAR(25) DEFAULT 'Watchlist',
