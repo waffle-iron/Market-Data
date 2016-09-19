@@ -11,8 +11,9 @@
 ## Back-End Development Environment Setup
 
 1. Download Vagrant: https://www.vagrantup.com/downloads.html
-2. Run `vagrant up` within the project's root directory
-3. Run `vagrant provision` to run the provision script again **ONLY** if you have modified it
-4. Follow the commands printed out by the provision script
-5. Run `npm start` to get the Node server running whilst connected to the PostgreSQL database
-6. Hack the planet
+2. Set up a Debian box with VirtualBox as the provider: https://atlas.hashicorp.com/debian/boxes/jessie64
+3. Run `vagrant up` within the project's root directory
+4. Run `vagrant provision` to run the provision script again **ONLY** if you have modified it
+5. Follow the commands printed out by the provision script
+6. Run `npm start` to get the Node server running whilst connected to the PostgreSQL database
+7. Hack the planet
