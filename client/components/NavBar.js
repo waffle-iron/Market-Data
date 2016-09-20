@@ -12,7 +12,6 @@ const NavBar = (props) => {
             <NavItem to='/dashboard' itemName='Dashboard' />
             <NavItem to='/login' itemName='Login' />
             <NavItem to='/signup' itemName='Sign Up' />
-            <NavItem to='/landing' itemName='Coming Soon' />
         </div>
     )
 }
