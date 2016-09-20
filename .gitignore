@@ -5,3 +5,12 @@ node_modules
 *.log*
 *bundle*
 config.json
+
+*.otf
+*.eot
+*.ttf
+*.woff
+*.woff2
+*.svg
+#.png
+#.jpg
