@@ -4,7 +4,7 @@ const StockDetails = (props) => {
     return (
         <div>
             <span>
-                <h5>{ props.Symbol }  {props.Name}</h5>
+                <h5>{ props.Symbol } {props.Name}</h5>
             </span>
             <span>
                 <h6>

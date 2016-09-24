@@ -29,13 +29,7 @@ class Dashboard extends Component {
             })
         }
     }
-    handleChange = (e) => {
-        this.setState({
-            stockSymbol: e.target.value.toUpperCase()
-        })
-    }
     handleTab = (e) => {
-        console.log(e.target.value)
         this.setState({
             view: e.target.value
         })
@@ -63,7 +57,8 @@ class Dashboard extends Component {
             <div styleName='root'>
                 <h3>Stock Data</h3>
                 <StockForm onSubmit={this.handleSubmit}
-                    onChange={this.handleChange} value={stockSymbol} />
+                    onChange={(e) => this.setState({ stockSymbol: e.target.value.toUpperCase() })}
+                    value={stockSymbol} />
                 { isLoading ? '' : <StockDetails {...quoteData} /> }
                 <PortfolioSummary />
                 <ul styleName='tab-list'>
