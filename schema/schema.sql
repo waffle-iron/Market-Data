@@ -25,9 +25,11 @@ CREATE TABLE users (
     birth_date TIMESTAMP DEFAULT NULL,
     email VARCHAR(65) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
+    password_salt TEXT NOT NULL,
     date_created TIMESTAMP DEFAULT now() NOT NULL,
     date_updated TIMESTAMP DEFAULT now() NOT NULL,
     date_deleted TIMESTAMP DEFAULT NULL,
+    last_login TIMESTAMP DEFAULT now() NOT NULL,
     status VARCHAR(10) DEFAULT 'active',
     verified BOOLEAN DEFAULT FALSE
 );
