@@ -66,8 +66,8 @@ printf "  DATABASE_URL=postgresql://$APP_DB_USER:$APP_DB_PASS@localhost:15432/$A
 echo "Local command to access the database via psql:"
 echo "  export PGUSER=$APP_DB_USER; export PGPASSWORD=$APP_DB_PASS; psql -h localhost -p 15432 $APP_DB_NAME"
 
-# Create Knex connection config with generated details
-cat <<EOF >> config.json
+# Create Knex connection config file
+cat << EOF >> config.json
 {
     "knex" : {
         "client": "pg",
