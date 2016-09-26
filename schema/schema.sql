@@ -22,14 +22,14 @@ CREATE TABLE users (
     username VARCHAR(35) UNIQUE NOT NULL,
     first_name VARCHAR(25),
     last_name VARCHAR(25),
-    birth_date TIMESTAMP DEFAULT NULL,
+    birth_date TIMESTAMPTZ DEFAULT NULL,
     email VARCHAR(65) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
     password_salt TEXT NOT NULL,
-    date_created TIMESTAMP DEFAULT now() NOT NULL,
-    date_updated TIMESTAMP DEFAULT now() NOT NULL,
-    date_deleted TIMESTAMP DEFAULT NULL,
-    last_login TIMESTAMP DEFAULT now() NOT NULL,
+    date_created TIMESTAMPTZ DEFAULT now() NOT NULL,
+    date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
+    date_deleted TIMESTAMPTZ DEFAULT NULL,
+    last_login TIMESTAMPTZ DEFAULT now() NOT NULL,
     status VARCHAR(10) DEFAULT 'active',
     verified BOOLEAN DEFAULT FALSE
 );
@@ -44,13 +44,13 @@ CREATE TABLE user_profiles (
 CREATE TABLE user_sessions (
     session_key TEXT PRIMARY KEY,
     user_id BIGINT REFERENCES users(id) NOT NULL,
-    login_time TIMESTAMP NOT NULL,
-    last_seen_time TIMESTAMP NOT NULL
+    login_time TIMESTAMPTZ NOT NULL,
+    last_seen_time TIMESTAMPTZ NOT NULL
 );
 
 CREATE TABLE beta_signups (
     email VARCHAR(65) UNIQUE NOT NULL,
-    date_created TIMESTAMP DEFAULT now() NOT NULL,
+    date_created TIMESTAMPTZ DEFAULT now() NOT NULL,
     verified BOOLEAN DEFAULT FALSE
 );
 
@@ -59,9 +59,9 @@ CREATE TABLE portfolios (
     user_id BIGINT REFERENCES users(id) NOT NULL,
     name VARCHAR(25) DEFAULT 'Portfolio',
     funds DECIMAL DEFAULT 100000,
-    date_created TIMESTAMP DEFAULT now(),
-    date_updated TIMESTAMP DEFAULT now(),
-    date_deleted TIMESTAMP DEFAULT NULL,
+    date_created TIMESTAMPTZ DEFAULT now(),
+    date_updated TIMESTAMPTZ DEFAULT now(),
+    date_deleted TIMESTAMPTZ DEFAULT NULL,
     status VARCHAR(10) DEFAULT 'active'
 );
 
@@ -69,9 +69,9 @@ CREATE TABLE watchlists (
     id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
     user_id BIGINT REFERENCES users(id) NOT NULL,
     name VARCHAR(25) DEFAULT 'Watchlist',
-    date_created TIMESTAMP DEFAULT now(),
-    date_updated TIMESTAMP DEFAULT now(),
-    date_deleted TIMESTAMP DEFAULT NULL
+    date_created TIMESTAMPTZ DEFAULT now(),
+    date_updated TIMESTAMPTZ DEFAULT now(),
+    date_deleted TIMESTAMPTZ DEFAULT NULL
 );
 
 CREATE TABLE stocks (
@@ -80,9 +80,9 @@ CREATE TABLE stocks (
     portfolio_id BIGINT REFERENCES portfolios(id) NOT NULL,
     symbol VARCHAR(20) NOT NULL,
     shares INTEGER DEFAULT 0,
-    date_created TIMESTAMP DEFAULT now(),
-    date_updated TIMESTAMP DEFAULT now(),
-    date_deleted TIMESTAMP DEFAULT NULL
+    date_created TIMESTAMPTZ DEFAULT now(),
+    date_updated TIMESTAMPTZ DEFAULT now(),
+    date_deleted TIMESTAMPTZ DEFAULT NULL
 );
 
 CREATE TABLE stock_transactions (
@@ -90,8 +90,8 @@ CREATE TABLE stock_transactions (
     user_id BIGINT REFERENCES users(id) NOT NULL,
     portfolio_id BIGINT REFERENCES portfolios(id) NOT NULL,
     stock_id BIGINT REFERENCES stocks(id) NOT NULL,
-    buy_date TIMESTAMP,
-    sell_date TIMESTAMP,
+    buy_date TIMESTAMPTZ,
+    sell_date TIMESTAMPTZ,
     buy_price DECIMAL,
     sell_price DECIMAL
 );
