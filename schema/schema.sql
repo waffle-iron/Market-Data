@@ -25,7 +25,6 @@ CREATE TABLE users (
     birth_date TIMESTAMPTZ DEFAULT NULL,
     email VARCHAR(65) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    password_salt TEXT NOT NULL,
     date_created TIMESTAMPTZ DEFAULT now() NOT NULL,
     date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
     date_deleted TIMESTAMPTZ DEFAULT NULL,

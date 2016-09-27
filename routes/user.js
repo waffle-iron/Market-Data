@@ -25,11 +25,10 @@ router.post('/create', (req, res) => {
                         .insert({
                             username,
                             password_hash: hash,
-                            password_salt: salt,
                             email
                         })
                         .then(data => res.send(data))
-                        .catch(data => res.send(error))
+                        .catch(error => res.send(error))
                 })
                 .catch(error => res.send(error))
         })
@@ -39,11 +38,19 @@ router.post('/create', (req, res) => {
 router.post('/login', (req, res) => {
     // To be finished
     const { email, username, password } = req.body
-    const loginAccount = email === null ? username : email
+    // const loginAccount = email === null ? username : email
 
-    argon2.verify('super_long_hash', password)
-        .then(match => console.log(match))
-        .catch(error => console.log(error))
+    knex('users')
+        .where({ email })
+        .select('password_hash')
+        .then(data => {
+            const { password_hash } = data[0]
+
+            argon2.verify(password_hash, password)
+                .then(match => res.send(match))
+                .catch(error => res.send(error))
+        })
+        .catch(error => res.send(error))
 })
 
 module.exports = router
