@@ -39,3 +39,29 @@ export const createUser = (userData) => {
             .catch(error => dispatch(createUserFail(error.data)))
     }
 }
+
+const loginUserSuccess = (payload) => {
+    return { type: 'LOGIN_USER', payload }
+}
+
+const loginUserFail = (error) => {
+    return { type: 'LOGIN_USER', error }
+}
+
+export const loginUser = (userData) => {
+    const endPoind = '/v1/user/login'
+
+    return dispatch => {
+        axios.post(endPoint, userData, axiosConfig)
+            .then(response => dispatch(loginUserSuccess(response.data)))
+            .catch(error => dispatch(loginUserFail(error.data)))
+    }
+}
+
+export const getPortfolio = () => {
+    const endPoint = `/v1/user/portfolio`
+
+    return dispatch => {
+        // To be finished
+    }
+}

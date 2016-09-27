@@ -1,6 +1,8 @@
 import React from 'react'
 
 const StockDetails = (props) => {
+    if (props.Message) return alert(props.Message)
+
     return (
         <div>
             <span>

@@ -20,5 +20,14 @@
         { "symbol": "GM", "change": "-1.34%", "value": "negative" },
         { "symbol": "FB", "change": "+8.37%", "value": "positive" },
         { "symbol": "MRVL", "change": "+6.29%", "value": "positive" }
+    ],
+    "portfolio": [
+        { "symbol": "GOOG", "position": "long","price": "814.96" },
+        { "symbol": "AAPL", "position": "long","price": "112.71" },
+        { "symbol": "MSFT", "position": "short","price": "57.43" },
+        { "symbol": "MRVL", "position": "long","price": "13.01" },
+        { "symbol": "FB", "position": "short","price": "127.96" },
+        { "symbol": "TSLA", "position": "long","price": "207.45" },
+        { "symbol": "GM", "position": "long","price": "32.13" }
     ]
 }
