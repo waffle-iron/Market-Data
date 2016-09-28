@@ -6,11 +6,12 @@ const pg = require('pg')
 const knex = require('knex')(config.knex)
 
 router.get('/:username', (req, res) => {
-    knex('user_profiles').where({
-        user_username: req.params.username
-    })
-    .then(data => res.send(data[0]))
-    .catch(error => res.send(error))
+    knex('user_profiles')
+        .where({
+            user_username: req.params.username
+        })
+        .then(data => res.send(data[0]))
+        .catch(error => res.send(error))
 })
 
 router.post('/create', (req, res) => {
@@ -28,9 +29,7 @@ router.post('/create', (req, res) => {
                             email
                         })
                         .then(data => res.send(data))
-                        .catch(error => res.send(error))
                 })
-                .catch(error => res.send(error))
         })
         .catch(error => res.send(error))
 })
@@ -38,7 +37,7 @@ router.post('/create', (req, res) => {
 router.post('/login', (req, res) => {
     // To be finished
     const { email, username, password } = req.body
-    // const loginAccount = email === null ? username : email
+    // const loginCred = email === null ? username : email
 
     knex('users')
         .where({ email })
@@ -47,7 +46,11 @@ router.post('/login', (req, res) => {
             const { password_hash } = data[0]
 
             argon2.verify(password_hash, password)
-                .then(match => res.send(match))
+                .then(match => {
+                    if (match) {
+                        // To be added
+                    }
+                })
                 .catch(error => res.send(error))
         })
         .catch(error => res.send(error))
