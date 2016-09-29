@@ -17,3 +17,10 @@
 5. Follow the commands printed out by the provision script
 6. Run `npm start` to get the Node server running whilst connected to the PostgreSQL database
 7. Hack the planet
+
+## Recommended Development Tools
+
+If you don't have `nvm` (Node Version Manager) yet, it is highly advised that you install it. Simply use one of the two following install scripts:
+
+- For cURL: `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash`
+- For Wget: `wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash`

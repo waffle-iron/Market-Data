@@ -4,6 +4,8 @@ node_modules
 .module-cache
 *.log*
 *bundle*
+
+secret.json
 config.json
 
 *.otf
