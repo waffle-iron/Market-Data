@@ -10,8 +10,8 @@ const NavBar = (props) => {
         <div styleName='root'>
             <NavItem to='/' itemName='Home' />
             <NavItem to='/dashboard' itemName='Dashboard' />
-            <NavItem to='/login' itemName='Login' />
-            <NavItem to='/signup' itemName='Sign Up' />
+            <a styleName='nav-item' onClick={props.onClick} value='login'>Login</a>
+            <a styleName='nav-item' onClick={props.onClick} value='signup'>Sign Up</a>
         </div>
     )
 }

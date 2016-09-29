@@ -31,7 +31,7 @@ class SignUp extends Component {
                     onChange={this.handleInputChange}/>
                 <span>
                     Already have an account?
-                    <Link to='/login'>Log In</Link>
+                    <a onClick={this.props.login}>Log In</a>
                 </span>
             </div>
         )

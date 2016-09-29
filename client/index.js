@@ -9,8 +9,6 @@ import Root from './containers/Root'
 import Home from './containers/Home'
 import Dashboard from './containers/Dashboard'
 import ProfilePage from './containers/ProfilePage'
-import Login from './containers/Login'
-import SignUp from './containers/SignUp'
 import NoMatch from './containers/NoMatch'
 
 ReactDOM.render(
@@ -20,8 +18,6 @@ ReactDOM.render(
                 <IndexRoute component={Home} />
                 <Route path='dashboard' component={Dashboard} />
                 <Route path='user/:user' component={ProfilePage} />
-                <Route path='login' component={Login} />
-                <Route path='signup' component={SignUp} />
                 <Route path='*' component={NoMatch} />
             </Route>
         </Router>

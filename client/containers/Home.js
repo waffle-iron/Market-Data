@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
-import Modal from 'boron/FlyModal'
 
 import HomePageHero from '../components/HomePageHero'
 

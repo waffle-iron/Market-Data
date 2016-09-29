@@ -1,3 +1,7 @@
 .root {
     text-align: center;
 }
+
+.nav-item {
+    composes: root from '../atoms/NavItem';
+}
