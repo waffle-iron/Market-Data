@@ -37,7 +37,8 @@ CREATE TABLE user_profiles (
     id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
     user_id BIGINT REFERENCES users(id) UNIQUE NOT NULL,
     username TEXT REFERENCES users(username) UNIQUE NOT NULL,
-    avatar TEXT DEFAULT 'https://puu.sh/qlsJY/72d9b9920c.jpg'
+    avatar TEXT DEFAULT 'https://puu.sh/qlsJY/72d9b9920c.jpg',
+    bio TEXT DEFAULT 'Random information about me.'
 );
 
 CREATE TABLE user_sessions (
@@ -47,10 +48,22 @@ CREATE TABLE user_sessions (
     last_seen_time TIMESTAMPTZ NOT NULL
 );
 
-CREATE TABLE beta_signups (
-    email VARCHAR(65) UNIQUE NOT NULL,
-    date_created TIMESTAMPTZ DEFAULT now() NOT NULL,
-    verified BOOLEAN DEFAULT FALSE
+CREATE TABLE watchlists (
+    id SERIAL PRIMARY KEY NOT NULL,
+    user_id BIGINT REFERENCES users(id) NOT NULL,
+    name VARCHAR(25) DEFAULT 'Watchlist',
+    date_created TIMESTAMPTZ DEFAULT now(),
+    date_updated TIMESTAMPTZ DEFAULT now(),
+    date_deleted TIMESTAMPTZ DEFAULT NULL
+);
+
+CREATE TABLE watchlist_stocks (
+    id SERIAL PRIMARY KEY NOT NULL,
+    user_id BIGINT REFERENCES users(id) NOT NULL,
+    watchlist_id BIGINT REFERENCES watchlists(id) NOT NULL,
+    symbol VARCHAR(20) NOT NULL,
+    date_created TIMESTAMPTZ DEFAULT now(),
+    date_deleted TIMESTAMPTZ DEFAULT NULL
 );
 
 CREATE TABLE portfolios (
@@ -62,15 +75,6 @@ CREATE TABLE portfolios (
     date_updated TIMESTAMPTZ DEFAULT now(),
     date_deleted TIMESTAMPTZ DEFAULT NULL,
     status VARCHAR(10) DEFAULT 'active'
-);
-
-CREATE TABLE watchlists (
-    id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
-    user_id BIGINT REFERENCES users(id) NOT NULL,
-    name VARCHAR(25) DEFAULT 'Watchlist',
-    date_created TIMESTAMPTZ DEFAULT now(),
-    date_updated TIMESTAMPTZ DEFAULT now(),
-    date_deleted TIMESTAMPTZ DEFAULT NULL
 );
 
 CREATE TABLE stocks (
