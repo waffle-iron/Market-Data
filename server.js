@@ -1,9 +1,11 @@
-const env = process.env.NODE_ENV
 const express = require('express')
 const app = express()
 const path = require('path')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const session = require('express-session')
+
+const { secret } = require('./secret.json')
 
 const staticPath = path.join(__dirname, 'static')
 
@@ -12,6 +14,8 @@ const stock = require('./routes/stock')
 const user = require('./routes/user')
 
 app.use(cors())
+app.use(session({ secret, cookie: { maxAge: 60000 } }))
+
 app.use(bodyParser.json())
 
 app.use(express.static(staticPath))
