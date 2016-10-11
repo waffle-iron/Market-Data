@@ -69,17 +69,17 @@ echo "  export PGUSER=$APP_DB_USER; export PGPASSWORD=$APP_DB_PASS; psql -h loca
 # Create Knex connection config file
 cat << EOF >> config.json
 {
-    "knex" : {
-        "client": "pg",
-        "connection": {
-            "host": "127.0.0.1",
-            "port": "15432",
-            "user": "$APP_DB_USER",
-            "password": "$APP_DB_PASS",
-            "database": "$APP_DB_NAME",
-            "charset": "UTF8"
-        }
+  "knex" : {
+    "client": "pg",
+    "connection": {
+      "host": "127.0.0.1",
+      "port": "15432",
+      "user": "$APP_DB_USER",
+      "password": "$APP_DB_PASS",
+      "database": "$APP_DB_NAME",
+      "charset": "UTF8"
     }
+  }
 }
 EOF
 

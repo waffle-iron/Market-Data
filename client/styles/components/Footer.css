@@ -1,4 +1,6 @@
 .root {
-    margin-top: 95vh;
-    text-align: center;
+  bottom: 10px;
+  justify-content: center;
+  left: 40vw;
+  position: absolute;
 }

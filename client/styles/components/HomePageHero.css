@@ -1,0 +1,37 @@
+@value Palette:  "../globals/Palette";
+@value White, Black from Palette;
+
+.root {
+  width: 100vw;
+}
+
+.hero-img {
+  border-radius: 3px;
+  opacity: 0.60;
+  position: relative;
+  width: 70vw;
+
+  &:hover {
+    opacity: 0.45;
+  }
+}
+
+.container {
+  bottom: 30vh;
+  position: relative;
+  right: 10vw;
+}
+
+.hero-text {
+  color: Black;
+  text-shadow: 0 0 3px White, 0 0 3px White, 0 0 3px White, 0 0 3px White;
+}
+
+.join-button {
+  border: 3px solid Black;
+  border-radius: 2px;
+  color: Black;
+  padding: 10px 50px 10px 50px;
+  position: relative;
+  left: 30vw;
+}

@@ -12,15 +12,15 @@ import ProfilePage from './containers/ProfilePage'
 import NoMatch from './containers/NoMatch'
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Router history={hashHistory}>
-            <Route path='/' component={Root}>
-                <IndexRoute component={Home} />
-                <Route path='dashboard' component={Dashboard} />
-                <Route path='user/:user' component={ProfilePage} />
-                <Route path='*' component={NoMatch} />
-            </Route>
-        </Router>
-    </Provider>,
-    document.getElementById('application')
+  <Provider store={store}>
+    <Router history={hashHistory}>
+      <Route path='/' component={Root}>
+        <IndexRoute component={Home} />
+        <Route path='dashboard' component={Dashboard} />
+        <Route path='user/:user' component={ProfilePage} />
+        <Route path='*' component={NoMatch} />
+      </Route>
+    </Router>
+  </Provider>,
+  document.getElementById('application')
 )

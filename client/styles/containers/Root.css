@@ -2,18 +2,18 @@
 @value White from Palette;
 
 @font-face {
-    font-family: 'Arimo';
-    src: url('../../assets/fonts/Arimo/Arimo-Regular.ttf') format('truetype');
+  font-family: 'Arimo';
+  src: url('../../assets/fonts/Arimo/Arimo-Regular.ttf') format('truetype');
 }
 
 body {
-    background-color: White;
+  background-color: White;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a, p, div, span {
-    font-family: 'Arimo', sans-serif;
+  font-family: 'Arimo', sans-serif;
 }

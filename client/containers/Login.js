@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import CSSModules from 'react-css-modules'
 
 import LoginForm from '../components/LoginForm'
+
+import Style from '../styles/containers/Login'
 
 class Login extends Component {
     constructor(props) {
@@ -24,7 +27,7 @@ class Login extends Component {
     }
     render() {
         return (
-            <div>
+            <div styleName='root'>
                 <LoginForm onSubmit={this.handleSubmit}
                     onChange={this.handleInputChange} />
             </div>
@@ -32,4 +35,4 @@ class Login extends Component {
     }
 }
 
-export default connect()(Login)
+export default connect()(CSSModules(Login, Style))

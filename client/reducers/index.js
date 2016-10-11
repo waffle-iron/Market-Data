@@ -5,9 +5,9 @@ import stock from './stock'
 import user from './user'
 
 const rootReducer = combineReducers({
-    currency,
-    stock,
-    user
+  currency,
+  stock,
+  user
 })
 
 export default rootReducer

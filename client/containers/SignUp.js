@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import CSSModules from 'react-css-modules'
 
 import SignUpForm from '../components/SignUpForm'
+
+import Style from '../styles/containers/SignUp'
 
 class SignUp extends Component {
     constructor(props) {
@@ -26,7 +28,7 @@ class SignUp extends Component {
     }
     render() {
         return (
-            <div>
+            <div styleName='root'>
                 <SignUpForm onSubmit={this.handleSubmit}
                     onChange={this.handleInputChange}/>
                 <span>
@@ -38,4 +40,4 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp
+export default connect()(CSSModules(SignUp, Style))

@@ -3,25 +3,25 @@ const bhttp = require('bhttp')
 const router = express.Router()
 
 router.get('/:symbol', (req, res) => {
-    const baseURL = 'http://dev.markitondemand.com/MODApis/Api/v2/'
-    const endPoint = `${baseURL}Quote/json?symbol=${req.params.symbol}`
+  const baseURL = 'http://dev.markitondemand.com/MODApis/Api/v2/'
+  const endPoint = `${baseURL}Quote/json?symbol=${req.params.symbol}`
 
-    bhttp.get(endPoint, {}, (error, response) => {
-        if (error) console.log(error)
-        res.send(response.body.toString())
-    })
+  bhttp.get(endPoint, {}, (error, response) => {
+    if (error) console.log(error)
+    res.send(response.body.toString())
+  })
 })
 
 router.post('/watch/:symbol', (req, res) => {
-    res.send('You are now watching:', req.params.symbol)
+  res.send('You are now watching:', req.params.symbol)
 })
 
 router.post('/buy/:symbol', (req, res) => {
-    res.send('You just bought:', req.params.symbol)
+  res.send('You just bought:', req.params.symbol)
 })
 
 router.post('/sell/:symbol', (req, res) => {
-    res.send('You just sold:', req.params.symbol)
+  res.send('You just sold:', req.params.symbol)
 })
 
 module.exports = router

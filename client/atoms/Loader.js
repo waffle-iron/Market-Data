@@ -4,22 +4,13 @@ import CSSModules from 'react-css-modules'
 import Style from '../styles/atoms/Loader'
 
 const Loader = (props) => {
-    return (
-        <div styleName='loader'>
-            <div styleName='segment-holder'>
-                <div styleName='one' />
-            </div>
-            <div styleName='segment-holder'>
-                <div styleName='two' />
-            </div>
-            <div styleName='segment-holder'>
-                <div styleName='three' />
-            </div>
-            <div styleName='segment-holder'>
-                <div styleName='four' />
-            </div>
-        </div>
-    )
+  const segments = ['one', 'two', 'three', 'four']
+
+  return (
+    <div styleName='loader'>
+      { segments.map(seg => <div styleName='segment-holder'><div styleName={seg} /></div>) }
+    </div>
+  )
 }
 
 export default CSSModules(Loader, Style)

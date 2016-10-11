@@ -2,10 +2,10 @@
 @value Blue, Grey from Palette;
 
 .root {
-    color: Blue;
-    margin: 5px;
+  color: Blue;
+  margin: 20px;
 
-    &:hover {
-        color: Grey;
-    }
+  &:hover {
+    color: Grey;
+  }
 }

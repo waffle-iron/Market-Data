@@ -5,40 +5,40 @@ import CSSModules from 'react-css-modules'
 import { getUserProfile } from '../actions/userActions'
 
 class ProfilePage extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
 
-        this.state = {
-            loading: true
-        }
+    this.state = {
+      loading: true
     }
-    componentWillMount() {
-        const { dispatch, params } = this.props
+  }
+  componentWillMount() {
+    const { dispatch, params } = this.props
 
-        dispatch(getUserProfile(params.user))
+    dispatch(getUserProfile(params.user))
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps !== this.props) {
+      this.setState({
+        loading: false
+      })
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps !== this.props) {
-            this.setState({
-                loading: false
-            })
-        }
-    }
-    render() {
-        const { loading } = this.state
-        const { params, profileData } = this.props
+  }
+  render() {
+    const { loading } = this.state
+    const { params, profileData } = this.props
 
-        return (
-            <div>
-                { loading ? 'LOADING...' : <img src={profileData.avatar} />}
-            </div>
-        )
-    }
+    return (
+      <div>
+        { loading ? 'LOADING...' : <img src={profileData.avatar} />}
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state) => {
-    const { profileData } = state.user
-    return { profileData }
+  const { profileData } = state.user
+  return { profileData }
 }
 
 export default connect(mapStateToProps)(ProfilePage)

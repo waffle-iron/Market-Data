@@ -7,15 +7,15 @@ import HomePageHero from '../components/HomePageHero'
 import Style from '../styles/containers/Home'
 
 class Home extends Component {
-    render() {
-        const { dispatch } = this.props
+  render() {
+    const { dispatch } = this.props
 
-        return (
-            <div styleName='root'>
-                <HomePageHero />
-            </div>
-        )
-    }
+    return (
+      <div styleName='root'>
+        <HomePageHero />
+      </div>
+    )
+  }
 }
 
 export default connect()(CSSModules(Home, Style))

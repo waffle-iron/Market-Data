@@ -12,34 +12,34 @@ import Footer from '../components/Footer'
 import Style from '../styles/containers/Root'
 
 class Root extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
 
-        this.state = {
-            loggedIn: false,
-            modal: ''
-        }
+    this.state = {
+      loggedIn: false,
+      modal: ''
     }
-    handleClick = (e) => {
-        this.setState({
-            modal: e.target.value
-        })
-        this.refs.modal.show()
-    }
-    render() {
-        const { loggedIn, modal } = this.state
+  }
+  handleClick = (e) => {
+    this.setState({
+      modal: e.target.value
+    })
+    this.refs.modal.show()
+  }
+  render() {
+    const { loggedIn, modal } = this.state
 
-        return (
-            <div>
-                <NavBar onClick={this.handleClick} />
-                <Modal ref='modal'>
-                    { modal && !loggedIn ? (modal === 'login' ? <Login /> : <SignUp />) : '' }
-                </Modal>
-                { this.props.children }
-                <Footer />
-            </div>
-        )
-    }
+    return (
+      <div>
+        <NavBar onClick={this.handleClick} />
+        <Modal ref='modal'>
+          { modal && !loggedIn ? (modal === 'login' ? <Login /> : <SignUp />) : '' }
+        </Modal>
+        { this.props.children }
+        <Footer />
+      </div>
+    )
+  }
 }
 
 export default connect()(CSSModules(Root, Style))

@@ -25,9 +25,9 @@ app.use('/v1/stock', stock)
 app.use('/v1/user', user)
 
 app.get('*', (req, res) => {
-    res.sendFile('index.html', {
-        root: staticPath
-    })
+  res.sendFile('index.html', {
+    root: staticPath
+  })
 })
 
 app.listen(8080, () => console.log('λ CORS-enabled server on port: 8080'))
