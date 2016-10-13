@@ -2,6 +2,6 @@
   text-align: center;
 }
 
-.nav-item {
+.link {
   composes: root from '../atoms/NavItem';
 }

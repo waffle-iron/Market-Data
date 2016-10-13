@@ -4,8 +4,7 @@ const CurrencyData = (props) => {
   return (
     <div>
       <h3>Currency Data</h3>
-      <span>{ props.symbol }</span>
-      <span>{ props.price }</span>
+      <span>{ props.symbol }</span><span>{ props.price }</span>
     </div>
   )
 }

@@ -16,7 +16,6 @@ class Root extends Component {
     super(props)
 
     this.state = {
-      loggedIn: false,
       modal: ''
     }
   }
@@ -27,7 +26,8 @@ class Root extends Component {
     this.refs.modal.show()
   }
   render() {
-    const { loggedIn, modal } = this.state
+    const { loggedIn } = this.props
+    const { modal } = this.state
 
     return (
       <div>
@@ -40,6 +40,11 @@ class Root extends Component {
       </div>
     )
   }
+}
+
+const mapStateToProps = (state) => {
+  const { loggedIn } = state.user
+  return { loggedIn }
 }
 
 export default connect()(CSSModules(Root, Style))

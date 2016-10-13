@@ -1,4 +1,6 @@
 .root {
+  align-items: center;
   height: 55vh;
+  text-align: center;
   width: 35vw;
 }

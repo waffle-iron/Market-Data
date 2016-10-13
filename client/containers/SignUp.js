@@ -22,16 +22,30 @@ class SignUp extends Component {
     const { dispatch } = this.props
     e.preventDefault()
 
+    if (this.state.password.length < 8) {
+      this.setState({
+        password: ''
+      })
+      return alert('Choose a password longer than 8 characters')
+    }
+
     dispatch(createUser(this.state))
+    console.log(this.state)
+
+    this.setState({
+      username: '',
+      email: '',
+      password: ''
+    })
   }
   render() {
     return (
       <div styleName='root'>
-        <SignUpForm onSubmit={this.handleSubmit}
+        <SignUpForm onSubmit={this.handleSubmit} {...this.state}
           onChange={(e) => this.setState({ [e.target.name]: e.target.value })} />
         <span>
           Already have an account?
-          <a onClick={this.props.login}>Log In</a>
+          <a href='#' onClick={this.props.login}> Log In</a>
         </span>
       </div>
     )

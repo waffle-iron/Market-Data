@@ -25,7 +25,7 @@ class Dashboard extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props) {
       this.setState({
-          isLoading: false
+        isLoading: false
       })
     }
   }

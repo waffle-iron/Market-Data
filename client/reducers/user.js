@@ -5,6 +5,8 @@ const initialState = {
 }
 
 const user = (state = initialState, action) => {
+  if (action.error) return ({ ...state, error: action.error })
+
   switch (action.type) {
     case 'GET_USER':
       return Object.assign({}, state, {
@@ -12,7 +14,7 @@ const user = (state = initialState, action) => {
       })
     case 'CREATE_USER':
       return Object.assign({}, state, {
-        createStatus: action.payload || action.error
+        createStatus: action.payload
       })
     case 'LOGIN_USER':
       return {

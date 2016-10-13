@@ -4,6 +4,8 @@ const initialState = {
 }
 
 const stock = (state = initialState, action) => {
+  if (action.error) return ({ ...state, error: action.error })
+
   switch (action.type) {
     case 'FETCHING_STOCK_DATA':
       return {

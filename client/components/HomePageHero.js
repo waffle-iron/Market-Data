@@ -8,7 +8,7 @@ const HomePageHero = (props) => {
     <div styleName='root'>
       <h1 styleName='hero-text'>Learn. Play. Conquer.</h1>
       <h2>
-        <a styleName='join-button' onClick={props.onClick} value='signup'>
+        <a styleName='join-button' href='#' onClick={props.onClick} value='signup'>
           Start Trading
         </a>
       </h2>
