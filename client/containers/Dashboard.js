@@ -29,11 +29,6 @@ class Dashboard extends Component {
       })
     }
   }
-  handleTab = (e) => {
-    this.setState({
-      view: e.target.value
-    })
-  }
   handleSubmit = (e) => {
     const { stockSymbol } = this.state
     const { dispatch } = this.props
@@ -63,7 +58,8 @@ class Dashboard extends Component {
         <PortfolioSummary />
         <ul styleName='tab-list'>
           { tabValues.map(tab => <NavTab {...tab}
-              key={create().value} onClick={this.handleTab}
+              key={create().value}
+              onClick={(e) => this.setState({ view: e.target.value })}
               isActive={view === tab.value} />) }
         </ul>
       </div>

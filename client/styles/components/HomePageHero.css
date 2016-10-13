@@ -1,37 +1,35 @@
 @value Palette:  "../globals/Palette";
-@value White, Black from Palette;
+@value Black, Blue, Dark-Grey, Light-Grey, White from Palette;
 
 .root {
-  width: 100vw;
-}
-
-.hero-img {
-  border-radius: 3px;
-  opacity: 0.60;
-  position: relative;
+  background-color: Light-Grey;
+  border: 1px solid Light-Grey;
+  border-radius: 2px;
+  display: block;
+  height: 45vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5vh;
   width: 70vw;
-
-  &:hover {
-    opacity: 0.45;
-  }
-}
-
-.container {
-  bottom: 30vh;
-  position: relative;
-  right: 10vw;
 }
 
 .hero-text {
-  color: Black;
-  text-shadow: 0 0 3px White, 0 0 3px White, 0 0 3px White, 0 0 3px White;
+  color: Dark-Grey;
+  margin: 10vh;
+  padding-top: 5vh;
 }
 
 .join-button {
-  border: 3px solid Black;
+  background-color: White;
+  border: 2px solid Dark-Grey;
   border-radius: 2px;
-  color: Black;
-  padding: 10px 50px 10px 50px;
-  position: relative;
-  left: 30vw;
+  color: Dark-Grey;
+  padding: 15px 45px 15px 45px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: Dark-Grey;
+    border: 2px solid White;
+    color: Light-Grey;
+  }
 }

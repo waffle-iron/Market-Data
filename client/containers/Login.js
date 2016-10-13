@@ -7,32 +7,27 @@ import LoginForm from '../components/LoginForm'
 import Style from '../styles/containers/Login'
 
 class Login extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
 
-        this.state = {
-            username: '',
-            password: ''
-        }
+    this.state = {
+      username: '',
+      password: ''
     }
-    handleInputChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-    handleSubmit = (e) => {
-        e.preventDefault()
+  }
+  handleSubmit = (e) => {
+    e.preventDefault()
 
-        console.log(this.state)
-    }
-    render() {
-        return (
-            <div styleName='root'>
-                <LoginForm onSubmit={this.handleSubmit}
-                    onChange={this.handleInputChange} />
-            </div>
-        )
-    }
+    console.log(this.state)
+  }
+  render() {
+    return (
+      <div styleName='root'>
+        <LoginForm onSubmit={this.handleSubmit}
+          onChange={(e) => this.setState({ [e.target.name]: e.target.value })} />
+      </div>
+    )
+  }
 }
 
 export default connect()(CSSModules(Login, Style))

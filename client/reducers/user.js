@@ -1,6 +1,7 @@
 const initialState = {
-  profileData: {},
-  createStatus: ''
+  createStatus: '',
+  loggedIn: false,
+  profileData: {}
 }
 
 const user = (state = initialState, action) => {
@@ -13,6 +14,13 @@ const user = (state = initialState, action) => {
       return Object.assign({}, state, {
         createStatus: action.payload || action.error
       })
+    case 'LOGIN_USER':
+      return {
+        ...state,
+        loggedIn: !state.loggedIn
+      }
+    case 'LOGOUT_USER':
+      return state
     default:
       return state
   }

@@ -4,6 +4,8 @@ import CSSModules from 'react-css-modules'
 
 import { getUserProfile } from '../actions/userActions'
 
+import Loader from '../atoms/Loader'
+
 class ProfilePage extends Component {
   constructor(props) {
     super(props)
@@ -30,7 +32,7 @@ class ProfilePage extends Component {
 
     return (
       <div>
-        { loading ? 'LOADING...' : <img src={profileData.avatar} />}
+        { loading ? <Loader /> : <img src={profileData.avatar} />}
       </div>
     )
   }

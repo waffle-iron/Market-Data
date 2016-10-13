@@ -30,7 +30,7 @@ let base = {
           `css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss-loader`
       )
     }, {
-      test: /\.(png|jpg)$/,
+      test: /\.(png|jpg|jpeg)$/,
       loader: 'url-loader?limit=8192'
     }, {
       test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
