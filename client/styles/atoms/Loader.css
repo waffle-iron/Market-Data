@@ -2,25 +2,24 @@
 @value Blue from Palette;
 
 .loader {
+  animation: rotate-loader 5s infinite;
+  border: 1px solid Blue;
   box-sizing: border-box;
   height: 115px;
-  width: 115px;
-  margin: 0 auto;
-  margin-top: 75px;
-  transform: rotate(-45deg);
-  font-size: 0;
   line-height: 0;
-  animation: rotate-loader 5s infinite;
+  margin: 0 auto;
+  margin-top: 40vh;
   padding: 25px;
-  border: 1px solid Blue;
+  transform: rotate(-45deg);
+  width: 115px;
 }
 
 .segment-holder {
   box-sizing: border-box;
-  position: relative;
   display: inline-block;
-  width: 50%;
   height: 50%;
+  position: relative;
+  width: 50%;
 }
 
 .segment {
@@ -31,37 +30,37 @@
 
 .one {
   composes: segment;
+  animation: slide-one 1s infinite;
   bottom: 0;
   height: 0;
   width: 100%;
-  animation: slide-one 1s infinite;
 }
 
 .two {
   composes: segment;
+  animation: slide-two 1s infinite;
+  animation-delay: 0.25s;
   left: 0;
   height: 100%;
   width: 0;
-  animation: slide-two 1s infinite;
-  animation-delay: 0.25s;
 }
 
 .three {
   composes: segment;
-  right: 0;
-  height: 100%;
-  width: 0;
   animation: slide-two 1s infinite;
   animation-delay: 0.75s;
+  height: 100%;
+  right: 0;
+  width: 0;
 }
 
 .four {
   composes: segment;
-  top: 0;
-  height: 0;
-  width: 100%;
   animation: slide-one 1s infinite;
   animation-delay: 0.5s;
+  height: 0;
+  top: 0;
+  width: 100%;
 }
 
 @keyframes slide-one {

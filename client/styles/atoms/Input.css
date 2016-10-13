@@ -11,18 +11,18 @@
 }
 
 .label-check {
-  display: block;
-  position: absolute;
-  margin-top: 2px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
   background: #46485c;
-  content: "";
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
   border: 3px solid #252730;
+  border-radius: 50%;
   box-shadow: 0px 0px 0px 2px #46485c;
+  content: "";
+  cursor: pointer;
+  display: block;
+  height: 4px;
+  margin-top: 2px;
+  position: absolute;
+  transition: all 0.3s ease-in-out;
+  width: 4px;
 }
 
 .label-checked {
