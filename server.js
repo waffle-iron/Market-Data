@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const cors = require('cors')
+const redis = require('redis')
+const client = redis.createClient()
 const bodyParser = require('body-parser')
 const session = require('express-session')
 

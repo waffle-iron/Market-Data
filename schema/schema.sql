@@ -41,13 +41,6 @@ CREATE TABLE user_profiles (
     bio TEXT DEFAULT 'Random information about me.'
 );
 
-CREATE TABLE user_sessions (
-    session_key TEXT PRIMARY KEY,
-    user_id BIGINT REFERENCES users(id) NOT NULL,
-    login_time TIMESTAMPTZ NOT NULL,
-    last_seen_time TIMESTAMPTZ NOT NULL
-);
-
 CREATE TABLE watchlists (
     id SERIAL PRIMARY KEY NOT NULL,
     user_id BIGINT REFERENCES users(id) NOT NULL,
