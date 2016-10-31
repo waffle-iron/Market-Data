@@ -11,7 +11,7 @@ let base = {
   entry: './index.js',
   output: {
     path: path.join(__dirname, 'static'),
-    filename: 'bundle.js',
+    filename: '/bundle.js',
   },
   resolve: {
     extensions: ['', '.js', '.jsx', '.css'],

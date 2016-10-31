@@ -49,7 +49,7 @@ const loginUserFail = (error) => {
 }
 
 export const loginUser = (userData) => {
-  const endPoind = '/v1/user/login'
+  const endPoint = '/v1/user/login'
 
   return dispatch => {
     axios.post(endPoint, userData, axiosConfig)

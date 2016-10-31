@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
 
+import { loginUser } from '../actions/userActions'
+
 import LoginForm from '../components/LoginForm'
 
 import Style from '../styles/containers/Login'
@@ -11,14 +13,15 @@ class Login extends Component {
     super(props)
 
     this.state = {
-      username: '',
+      email: '',
       password: ''
     }
   }
   handleSubmit = (e) => {
+    const { dispatch } = this.props
     e.preventDefault()
 
-    console.log(this.state)
+    dispatch(loginUser(this.state))
   }
   render() {
     return (

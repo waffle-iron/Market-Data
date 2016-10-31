@@ -1,11 +1,12 @@
 const express = require('express')
+const redis = require('redis')
 const app = express()
+// const client = redis.createClient()
 const path = require('path')
 const cors = require('cors')
-const redis = require('redis')
-const client = redis.createClient()
-const bodyParser = require('body-parser')
 const session = require('express-session')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 
 const { secret } = require('./secret.json')
 
@@ -16,9 +17,11 @@ const stock = require('./routes/stock')
 const user = require('./routes/user')
 
 app.use(cors())
-app.use(session({ secret, cookie: { maxAge: 60000 } }))
 
 app.use(bodyParser.json())
+
+app.use(cookieParser())
+app.use(session({ secret, cookie: { maxAge: 60000 } }))
 
 app.use(express.static(staticPath))
 

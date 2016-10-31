@@ -49,6 +49,12 @@ router.post('/login', (req, res) => {
         .then(match => {
           if (match) {
             // To be added
+            res.cookie('cookie_name', 'cookie_value')
+            res.send('Cookie is set')
+          } else {
+            req.session.error = 'Access denied'
+            res.send('Incorrect password or email')
+            res.redirect('/')
           }
         })
         .catch(error => res.send(error))
