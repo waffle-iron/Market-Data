@@ -25,6 +25,7 @@
     "express-ws": "^2.0.0",
     "guid": "0.0.12",
     "knex": "^0.11.7",
+    "passport": "^0.3.2",
     "pg": "^6.0.1",
     "react": "^15.1.0",
     "react-css-modules": "^3.7.6",
