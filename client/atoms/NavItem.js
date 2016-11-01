@@ -6,7 +6,9 @@ import Style from '../styles/atoms/NavItem'
 
 const NavItem = (props) => {
   return (
-    <Link styleName='root' to={props.to}>{ props.itemName }</Link>
+    <li>
+      <Link to={props.to}>{ props.text }</Link>
+    </li>
   )
 }
 

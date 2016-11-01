@@ -1,18 +1,24 @@
 import React from 'react'
+import { Link } from 'react-router'
 import CSSModules from 'react-css-modules'
 
+import NavDesktop from './NavDesktop'
 import NavItem from '../atoms/NavItem'
+import NavMobile from './NavMobile'
 
 import Style from '../styles/components/NavBar'
 
 const NavBar = (props) => {
   return (
-    <div styleName='root'>
-      <NavItem to='/' itemName='Home' />
-      <NavItem to='/dashboard' itemName='Dashboard' />
-      <a styleName='link' href='#' onClick={props.onClick} value='login'>Login</a>
-      <a styleName='link' href='#' onClick={props.onClick} value='signup'>Sign Up</a>
-    </div>
+    <nav className='blue-grey lighten-4' role='navigation'>
+      <div className='nav-wrapper container'>
+        <Link id='logo-container' to='/' className='brand-logo'>
+          <i className='material-icons'>polymer</i>
+        </Link>
+        <NavDesktop onClick={props.onClick} />
+        <NavMobile onClick={props.onClick} />
+      </div>
+    </nav>
   )
 }
 

@@ -1,14 +1,17 @@
 import React from 'react'
-import CSSModules from 'react-css-modules'
-
-import Style from '../styles/components/Footer'
 
 const Footer = (props) => {
   return (
-    <div styleName='root'>
-      © Copyright 2016 Radiux. All Rights Reserved.
-    </div>
+    <footer className='page-footer blue-grey lighten-4'>
+      <div className='footer-copyright'>
+        <div className='container'>
+          © Copyright 2016
+          <a className='blue-grey-text darken-2' href='http://radiux.io/'> Radiux</a>
+          . All Rights Reserved.
+        </div>
+      </div>
+    </footer>
   )
 }
 
-export default CSSModules(Footer, Style)
+export default Footer
