@@ -57,8 +57,7 @@ class Dashboard extends Component {
         { isLoading ? '' : <StockDetails {...quoteData} /> }
         <PortfolioSummary />
         <ul styleName='tab-list'>
-          { tabValues.map(tab => <NavTab {...tab}
-              key={create().value}
+          { tabValues.map(tab => <NavTab {...tab} key={create().value}
               onClick={(e) => this.setState({ view: e.target.value })}
               isActive={view === tab.value} />) }
         </ul>

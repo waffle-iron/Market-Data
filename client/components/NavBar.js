@@ -15,8 +15,8 @@ const NavBar = (props) => {
         <Link id='logo-container' to='/' className='brand-logo'>
           <i className='material-icons'>polymer</i>
         </Link>
-        <NavDesktop onClick={props.onClick} />
-        <NavMobile onClick={props.onClick} />
+        <NavDesktop loggedIn={false} onClick={props.onClick} />
+        <NavMobile loggedIn={false} onClick={props.onClick} />
       </div>
     </nav>
   )

@@ -31,7 +31,7 @@ const createUserFail = (error) => {
 }
 
 export const createUser = (userData) => {
-  const endPoint = '/v1/user/create'
+  const endPoint = '/v1/user/register'
 
   return dispatch => {
     axios.post(endPoint, userData, axiosConfig)

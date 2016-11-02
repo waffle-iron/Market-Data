@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Modal from 'boron/FlyModal'
 import CSSModules from 'react-css-modules'
 
 import HeroSection from '../components/HeroSection'
@@ -19,8 +20,11 @@ class Home extends Component {
     const { dispatch, loggedIn } = this.props
 
     return (
-      <div>
-        <HeroSection />
+      <div styleName='root'>
+        <Modal ref='modal'>
+          { !loggedIn ? <SignUp /> : '' }
+        </Modal>
+        <HeroSection onClick={() => this.refs.modal.show()} />
         <IconSection />
       </div>
     )

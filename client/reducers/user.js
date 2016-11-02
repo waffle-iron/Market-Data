@@ -5,6 +5,7 @@ const initialState = {
 }
 
 const user = (state = initialState, action) => {
+  console.log(action)
   if (action.error) return ({ ...state, error: action.error })
 
   switch (action.type) {
@@ -19,10 +20,13 @@ const user = (state = initialState, action) => {
     case 'LOGIN_USER':
       return {
         ...state,
-        loggedIn: !state.loggedIn
+        loggedIn: true
       }
     case 'LOGOUT_USER':
-      return state
+      return {
+        ...state,
+        loggedIn: false
+      }
     default:
       return state
   }

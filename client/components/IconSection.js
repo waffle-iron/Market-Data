@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { icon_section } from '../assets/site_text.json'
+
 import IconBlock from '../atoms/IconBlock'
 
 const IconSection = (props) => {
@@ -7,13 +9,10 @@ const IconSection = (props) => {
     <div className='container'>
       <div className='section'>
         <div className='row'>
-          <IconBlock icon='flash_on' />
-          <IconBlock icon='group' />
-          <IconBlock icon='settings' />
+          { icon_section.map(block => <IconBlock {...block} />) }
         </div>
       </div>
       <br />
-      <div className='section' />
     </div>
   )
 }

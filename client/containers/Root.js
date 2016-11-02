@@ -6,7 +6,6 @@ import CSSModules from 'react-css-modules'
 import Login from './Login'
 import SignUp from './SignUp'
 import NavBar from '../components/NavBar'
-import Header from '../components/Header'
 import Footer from '../components/Footer'
 
 import Style from '../styles/containers/Root'
