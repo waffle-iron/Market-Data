@@ -21,7 +21,12 @@ app.use(cors())
 app.use(bodyParser.json())
 
 app.use(cookieParser())
-app.use(session({ secret, cookie: { maxAge: 60000 } }))
+app.use(session({
+  secret,
+  cookie: { maxAge: 60000 },
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.use(express.static(staticPath))
 
