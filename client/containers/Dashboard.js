@@ -17,7 +17,7 @@ class Dashboard extends Component {
     super(props)
 
     this.state = {
-      isLoading: true,
+      symbolData: false,
       stockSymbol: '',
       view: 'portfolio'
     }
@@ -25,7 +25,7 @@ class Dashboard extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props) {
       this.setState({
-        isLoading: false
+        symbolData: true
       })
     }
   }
@@ -40,7 +40,7 @@ class Dashboard extends Component {
     })
   }
   render() {
-    const { isLoading, stockSymbol, view } = this.state
+    const { stockSymbol, symbolData, view } = this.state
     const { quoteData } = this.props
     const tabValues = [
       { name: 'Trades', value: 'trades' },
@@ -49,18 +49,21 @@ class Dashboard extends Component {
     ]
 
     return (
-      <div styleName='root'>
-        <h3>Stock Data</h3>
-        <StockForm onSubmit={this.handleSubmit}
-          onChange={(e) => this.setState({ stockSymbol: e.target.value.toUpperCase() })}
-          value={stockSymbol} />
-        { isLoading ? '' : <StockDetails {...quoteData} /> }
+      <div className='container'>
+        <div styleName='stock-container'>
+          <StockForm onSubmit={this.handleSubmit}
+            onChange={(e) => this.setState({ stockSymbol: e.target.value.toUpperCase() })}
+            value={stockSymbol} />
+          { symbolData ? <StockDetails {...quoteData} /> : '' }
+        </div>
         <PortfolioSummary />
-        <ul styleName='tab-list'>
-          { tabValues.map(tab => <NavTab {...tab} key={create().value}
-              onClick={(e) => this.setState({ view: e.target.value })}
-              isActive={view === tab.value} />) }
-        </ul>
+        <div className='container col s6'>
+          <ul className='tabs tabs-fixed-width'>
+            { tabValues.map(tab => <NavTab {...tab} key={create().value}
+                onClick={(e) => this.setState({ view: e.target.value })}
+                isActive={view === tab.value} />) }
+          </ul>
+        </div>
       </div>
     )
   }

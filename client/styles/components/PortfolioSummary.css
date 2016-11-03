@@ -1,8 +1,6 @@
 .root {
-  margin: 20px;
+  margin: 5vh 25vw 5vh 25vw;
 }
 
 .info-item {
-  list-style-type: none;
-  margin: 3px;
 }

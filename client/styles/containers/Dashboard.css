@@ -1,9 +1,7 @@
-.root {
+.stock-container {
   align-items: center;
-  text-align: center;
-}
-
-.tab-list {
-  display: inline-block;
-  list-style-type: none;
+  justify-content: center;
+  margin-left: 25vw;
+  margin-right: 25vw;
+  margin-top: 10vh;
 }

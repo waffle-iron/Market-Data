@@ -32,7 +32,7 @@ class Root extends Component {
       <div>
         <NavBar onClick={this.handleClick} />
         <Modal ref='modal'>
-          { modal && !loggedIn ? (modal === 'login' ? <Login /> : <SignUp />) : '' }
+          { modal && !loggedIn ? (modal === 'login' ? <Login /> : <SignUp onClick={this.handleClick} />) : '' }
         </Modal>
         { this.props.children }
         <Footer />

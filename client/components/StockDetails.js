@@ -1,21 +1,31 @@
 import React from 'react'
+import CSSModules from 'react-css-modules'
+
+import Style from '../styles/components/StockDetails'
 
 const StockDetails = (props) => {
   if (props.Message) return alert(props.Message)
 
   return (
-    <div>
-      <span><h5>{ props.Symbol } {props.Name}</h5></span>
+    <div styleName='root'>
+        <h5>{ props.Symbol } {props.Name}</h5>
+        <h6>${ props.LastPrice.toFixed(2) } &nbsp; { props.Change.toFixed(2) }%</h6>
       <span>
-        <h6>{ props.LastPrice.toFixed(2) } &nbsp; { props.Change.toFixed(2) }</h6>
-      </span>
-      <span>
-        <a onClick={props.onClick} value='buy'>Buy</a> &nbsp;
-        <a onClick={props.onClick} value='sell'>Sell</a> &nbsp;
-        <a onClick={props.onClick} value='watch'>Watch</a>
+        <a className='btn waves-effect blue-grey lighten-4' styleName='btn'
+          onClick={props.onClick} value='buy'>
+          <i className='material-icons'>check</i>
+        </a>
+        <a className='btn waves-effect blue-grey lighten-4' styleName='btn'
+          onClick={props.onClick} value='sell'>
+          <i className='material-icons'>close</i>
+        </a>
+        <a className='btn waves-effect blue-grey lighten-4' styleName='btn'
+          onClick={props.onClick} value='watch'>
+          <i className='material-icons'>add</i>
+        </a>
       </span>
     </div>
   )
 }
 
-export default StockDetails
+export default CSSModules(StockDetails, Style)

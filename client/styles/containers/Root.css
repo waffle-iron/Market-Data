@@ -1,5 +1,5 @@
 @value Palette:  "../globals/Palette";
-@value White from Palette;
+@value Blue, Dark-Grey, Green, Grey, Red, White from Palette;
 
 @font-face {
   font-family: 'Arimo';
@@ -16,4 +16,74 @@ a {
 
 a, p, div, span {
   font-family: 'Arimo', sans-serif;
+}
+
+/* label color */
+:global .input-field label {
+  color: Dark-Grey;
+}
+
+/* label focus color */
+:global .input-field input[type=text]:focus + label {
+  color: Dark-Grey;
+}
+
+:global .input-field input[type=email]:focus + label {
+  color: Dark-Grey;
+}
+
+:global .input-field input[type=password]:focus + label {
+  color: Dark-Grey;
+}
+
+/* label underline focus color */
+:global .input-field input[type=text]:focus {
+  border-bottom: 1px solid Dark-Grey;
+  box-shadow: 0 1px 0 0 Dark-Grey;
+}
+
+:global .input-field input[type=email]:focus {
+  border-bottom: 1px solid Dark-Grey;
+  box-shadow: 0 1px 0 0 Dark-Grey;
+}
+:global .input-field input[type=password]:focus {
+  border-bottom: 1px solid Dark-Grey;
+  box-shadow: 0 1px 0 0 Dark-Grey;
+}
+
+/* valid color */
+:global .input-field input[type=text].valid {
+  border-bottom: 1px solid Green;
+  box-shadow: 0 1px 0 0 Green;
+}
+
+:global .input-field input[type=email].valid {
+  border-bottom: 1px solid Green;
+  box-shadow: 0 1px 0 0 Green;
+}
+
+:global .input-field input[type=password].valid {
+  border-bottom: 1px solid Green;
+  box-shadow: 0 1px 0 0 Green;
+}
+
+/* invalid color */
+:global .input-field input[type=text].invalid {
+  border-bottom: 1px solid Red;
+  box-shadow: 0 1px 0 0 Red;
+}
+
+:global .input-field input[type=email].invalid {
+  border-bottom: 1px solid Red;
+  box-shadow: 0 1px 0 0 Red;
+}
+
+:global .input-field input[type=password].invalid {
+  border-bottom: 1px solid Red;
+  box-shadow: 0 1px 0 0 Red;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #000;
 }

@@ -1,18 +1,19 @@
 import React from 'react'
+import CSSModules from 'react-css-modules'
 
-import Input from '../atoms/Input'
-import Btn from '../atoms/Btn'
+import Style from '../styles/components/StockForm'
 
 const StockForm = (props) => {
   return (
-    <div>
-      <form onSubmit={props.onSubmit}>
-        <Input type='text' onChange={props.onChange}
-          value={props.value} />
-        <Btn text='Search' />
-      </form>
-    </div>
+    <form className='col s6' onSubmit={props.onSubmit}>
+      <div className='row'>
+        <div className='input-field col s12'>
+          <input className='validate' styleName='symbol-input' type='text'
+            onChange={props.onChange} value={props.value} />
+        </div>
+      </div>
+    </form>
   )
 }
 
-export default StockForm
+export default CSSModules(StockForm, Style)

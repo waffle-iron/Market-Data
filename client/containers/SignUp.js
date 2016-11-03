@@ -42,7 +42,7 @@ class SignUp extends Component {
           onChange={(e) => this.setState({ [e.target.name]: e.target.value })} />
         <span>
           Already have an account?
-          <a href='#' onClick={this.props.login}> Log In</a>
+          <a href='#' onClick={this.props.onClick} value='login'> Log In</a>
         </span>
       </div>
     )
