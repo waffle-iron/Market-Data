@@ -5,10 +5,13 @@ import CSSModules from 'react-css-modules'
 
 import { getStockQuote } from '../actions/stockActions'
 
+import NavTab from '../atoms/NavTab'
+import Portfolio from '../components/Portfolio'
 import PortfolioSummary from '../components/PortfolioSummary'
+import PreviousTrades from '../components/PreviousTrades'
 import StockForm from '../components/StockForm'
 import StockDetails from '../components/StockDetails'
-import NavTab from '../atoms/NavTab'
+import Watchlist from '../components/Watchlist'
 
 import Style from '../styles/containers/Dashboard'
 
@@ -63,6 +66,9 @@ class Dashboard extends Component {
                 onClick={(e) => this.setState({ view: e.target.value })}
                 isActive={view === tab.value} />) }
           </ul>
+        </div>
+        <div>
+          { view === 'portfolio' ? <Portfolio /> : (view === 'trades' ? <PreviousTrades /> : <Watchlist />) }
         </div>
       </div>
     )

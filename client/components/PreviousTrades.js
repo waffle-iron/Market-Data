@@ -1,9 +1,14 @@
 import React from 'react'
+import CSSModules from 'react-css-modules'
+
+import Style from '../styles/components/PreviousTrades'
 
 const PreviousTrades = (props) => {
   return (
-    <div>Here are your previous trades:</div>
+    <div className='center' styleName='root'>
+      <h3>Previous Trades</h3>
+    </div>
   )
 }
 
-export default PreviousTrades
+export default CSSModules(PreviousTrades, Style)

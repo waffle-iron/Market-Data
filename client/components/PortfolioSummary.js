@@ -5,7 +5,7 @@ import Style from '../styles/components/PortfolioSummary'
 
 const PortfolioSummary = (props) => {
   return (
-    <div className='container' styleName='root'>
+    <div className='container center'>
       <h3>Portfolio Stats</h3>
       <ul>
         <li styleName='info-item'>Total Portfolio Worth: $117,287</li>

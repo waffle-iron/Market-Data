@@ -20,35 +20,35 @@ a, p, div, span {
 
 /* label color */
 :global .input-field label {
-  color: Dark-Grey;
+  color: Grey;
 }
 
 /* label focus color */
 :global .input-field input[type=text]:focus + label {
-  color: Dark-Grey;
+  color: Grey;
 }
 
 :global .input-field input[type=email]:focus + label {
-  color: Dark-Grey;
+  color: Grey;
 }
 
 :global .input-field input[type=password]:focus + label {
-  color: Dark-Grey;
+  color: Grey;
 }
 
 /* label underline focus color */
 :global .input-field input[type=text]:focus {
-  border-bottom: 1px solid Dark-Grey;
-  box-shadow: 0 1px 0 0 Dark-Grey;
+  border-bottom: 1px solid Grey;
+  box-shadow: 0 1px 0 0 Grey;
 }
 
 :global .input-field input[type=email]:focus {
-  border-bottom: 1px solid Dark-Grey;
-  box-shadow: 0 1px 0 0 Dark-Grey;
+  border-bottom: 1px solid Grey;
+  box-shadow: 0 1px 0 0 Grey;
 }
 :global .input-field input[type=password]:focus {
-  border-bottom: 1px solid Dark-Grey;
-  box-shadow: 0 1px 0 0 Dark-Grey;
+  border-bottom: 1px solid Grey;
+  box-shadow: 0 1px 0 0 Grey;
 }
 
 /* valid color */
@@ -84,6 +84,6 @@ a, p, div, span {
 }
 
 /* icon prefix focus color */
-.input-field .prefix.active {
+:global .input-field .prefix.active {
   color: #000;
 }

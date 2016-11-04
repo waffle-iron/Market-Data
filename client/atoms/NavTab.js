@@ -8,7 +8,7 @@ const NavTab = (props) => {
 
   return (
     <li className='tab col s4 blue-grey lighten-4'>
-      <a  className={'blue-grey blue-grey-text lighten-4 ' + isActive} onClick={props.onClick} value={props.value}>
+      <a  className={'blue-grey-text lighten-4 ' + isActive} onClick={props.onClick} value={props.value}>
         { props.name }
       </a>
     </li>

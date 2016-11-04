@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import CSSModules from 'react-css-modules'
 
 import { createUser } from '../actions/userActions'
 
 import SignUpForm from '../components/SignUpForm'
+
+import Style from '../styles/containers/SignUp'
 
 class SignUp extends Component {
   constructor(props) {
@@ -26,8 +29,11 @@ class SignUp extends Component {
       return alert('Choose a password longer than 8 characters')
     }
 
+    if (this.state.username.match(/ /g)) {
+      alert('Can\'t have any spaces in between!')
+    }
+
     dispatch(createUser(this.state))
-    console.log(this.state)
 
     this.setState({
       username: '',
@@ -37,16 +43,12 @@ class SignUp extends Component {
   }
   render() {
     return (
-      <div>
+      <div styleName='root'>
         <SignUpForm onSubmit={this.handleSubmit} {...this.state}
           onChange={(e) => this.setState({ [e.target.name]: e.target.value })} />
-        <span>
-          Already have an account?
-          <a href='#' onClick={this.props.onClick} value='login'> Log In</a>
-        </span>
       </div>
     )
   }
 }
 
-export default connect()(SignUp)
+export default connect()(CSSModules(SignUp, Style))

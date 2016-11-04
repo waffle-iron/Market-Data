@@ -7,7 +7,7 @@ const StockDetails = (props) => {
   if (props.Message) return alert(props.Message)
 
   return (
-    <div styleName='root'>
+    <div className='center'>
         <h5>{ props.Symbol } {props.Name}</h5>
         <h6>${ props.LastPrice.toFixed(2) } &nbsp; { props.Change.toFixed(2) }%</h6>
       <span>

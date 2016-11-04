@@ -4,7 +4,7 @@ const IconBlock = (props) => {
   return (
     <div className='col s12 m4'>
       <div className='icon-block'>
-        <h2 className='center blue-grey-text darken-2'>
+        <h2 className='center blue-grey-text text-darken-2'>
           <i className='material-icons medium'>{ props.icon }</i>
         </h2>
         <h5 className='center'>{ props.center_text }</h5>

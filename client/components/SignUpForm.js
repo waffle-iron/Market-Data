@@ -1,6 +1,9 @@
 import React from 'react'
+import CSSModules from 'react-css-modules'
 
 import InputField from '../atoms/InputField'
+
+import Style from '../styles/components/SignUpForm'
 
 const SignUpForm = (props) => {
   return (
@@ -18,12 +21,18 @@ const SignUpForm = (props) => {
           <input className='validate' type='password'
             name='password' onChange={props.onChange} />
         </InputField>
-        <button className='btn-large waves-effect waves-light blue-grey lighten-4'>
-          <i className='material-icons'>send</i>
-        </button>
+        <div className='center'>
+          <button className='btn-large waves-effect waves-light blue-grey lighten-4' styleName='btn'>
+            <i className='material-icons blue-grey-text text-darken-2'>send</i>
+          </button>
+          <div styleName='login'>
+            Already have an account?
+            <a href='#' onClick={props.onClick} value='login'> Log In</a>
+          </div>
+        </div>
       </form>
     </div>
   )
 }
 
-export default SignUpForm
+export default CSSModules(SignUpForm, Style)
