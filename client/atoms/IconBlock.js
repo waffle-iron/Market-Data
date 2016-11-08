@@ -19,7 +19,7 @@ const IconBlock = (props) => {
 IconBlock.propTypes = {
   icon: PropTypes.string.isRequired,
   block_text: PropTypes.string.isRequired,
-  center_Text: PropTypes.string.isRequired,
+  center_text: PropTypes.string.isRequired
 }
 
 export default IconBlock

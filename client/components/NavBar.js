@@ -15,8 +15,8 @@ const NavBar = (props) => {
         <Link id='logo-container' to='/' className='brand-logo'>
           <i className='material-icons'>polymer</i>
         </Link>
-        <NavDesktop loggedIn={false} onClick={props.onClick} />
-        <NavMobile loggedIn={false} onClick={props.onClick} />
+        <NavDesktop loggedIn={props.loggedIn} onClick={props.onClick} />
+        <NavMobile loggedIn={props.loggedIn} onClick={props.onClick} />
         { props.loggedIn ? props.username : '' }
       </div>
     </nav>
