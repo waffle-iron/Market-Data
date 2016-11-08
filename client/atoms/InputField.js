@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 const InputField = (props) => {
   return (
@@ -11,6 +11,10 @@ const InputField = (props) => {
       </div>
     </div>
   )
+}
+
+InputField.propTypes = {
+  label: PropTypes.string.isRequired
 }
 
 export default InputField

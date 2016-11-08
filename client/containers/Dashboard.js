@@ -53,7 +53,7 @@ class Dashboard extends Component {
 
     return (
       <div className='container'>
-        <div styleName='stock-container'>
+        <div className='center'>
           <StockForm onSubmit={this.handleSubmit}
             onChange={(e) => this.setState({ stockSymbol: e.target.value.toUpperCase() })}
             value={stockSymbol} />

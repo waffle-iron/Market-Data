@@ -22,30 +22,31 @@ export const getUserProfile = (username) => {
   }
 }
 
-const createUserSuccess = (payload) => {
-  return { type: 'CREATE_USER', payload }
+const registerUserSuccess = (payload) => {
+  return { type: 'REGISTER_USER', payload }
 }
 
-const createUserFail = (error) => {
-  return { type: 'CREATE_USER', error }
+const registerUserFail = (error) => {
+  console.log(error)
+  return { type: 'REGISTER_USER', error }
 }
 
-export const createUser = (userData) => {
+export const registerUser = (userData) => {
   const endPoint = '/v1/user/register'
 
   return dispatch => {
     axios.post(endPoint, userData, axiosConfig)
-      .then(response => dispatch(createUserSuccess(response.data)))
-      .catch(error => dispatch(createUserFail(error.data)))
+      .then(response => dispatch(registerUserSuccess(response.data)))
+      .catch(error => dispatch(registerUserFail(error)))
   }
 }
 
 const loginUserSuccess = (payload) => {
-  return { type: 'LOGIN_USER', payload }
+  return { type: 'LOGIN_USER_SUCCESS', payload }
 }
 
 const loginUserFail = (error) => {
-  return { type: 'LOGIN_USER', error }
+  return { type: 'LOGIN_USER_FAIL', error }
 }
 
 export const loginUser = (userData) => {

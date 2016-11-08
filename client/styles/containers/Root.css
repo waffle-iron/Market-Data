@@ -14,7 +14,7 @@ a {
   text-decoration: none;
 }
 
-a, p, div, span {
+a, div, li, p, span {
   font-family: 'Arimo', sans-serif;
 }
 

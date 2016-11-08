@@ -16,8 +16,8 @@ ReactDOM.render(
     <Router history={hashHistory}>
       <Route path='/' component={Root}>
         <IndexRoute component={Home} />
-        <Route path='dashboard' component={Dashboard} />
-        <Route path='user/:user' component={ProfilePage} />
+        <Route path='/dashboard' component={Dashboard} />
+        <Route path='/user/:user' component={ProfilePage} />
         <Route path='*' component={NoMatch} />
       </Route>
     </Router>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 import NavItem from '../atoms/NavItem'
 
@@ -19,6 +19,10 @@ const NavMobile = (props) => {
       </a>
     </div>
   )
+}
+
+NavMobile.propTypes = {
+  loggedIn: PropTypes.bool.isRequired
 }
 
 export default NavMobile

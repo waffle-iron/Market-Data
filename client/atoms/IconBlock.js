@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 
 const IconBlock = (props) => {
   return (
@@ -14,6 +14,12 @@ const IconBlock = (props) => {
       </div>
     </div>
   )
+}
+
+IconBlock.propTypes = {
+  icon: PropTypes.string.isRequired,
+  block_text: PropTypes.string.isRequired,
+  center_Text: PropTypes.string.isRequired,
 }
 
 export default IconBlock

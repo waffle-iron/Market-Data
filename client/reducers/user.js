@@ -1,31 +1,41 @@
+import { browserHistory } from 'react-router'
+
 const initialState = {
-  createStatus: '',
-  loggedIn: false,
-  profileData: {}
+  userID: '',
+  username: '',
+  profileData: {},
+  error: ''
 }
 
 const user = (state = initialState, action) => {
   console.log(action)
-  if (action.error) return ({ ...state, error: action.error })
-
   switch (action.type) {
     case 'GET_USER':
       return Object.assign({}, state, {
         profileData: action.payload
       })
-    case 'CREATE_USER':
+    case 'REGISTER_USER':
       return Object.assign({}, state, {
-        createStatus: action.payload
+        username: action.payload.username
       })
-    case 'LOGIN_USER':
+    case 'LOGIN_USER_SUCCESS':
+      window.location.assign('/dashboard')
       return {
         ...state,
-        loggedIn: true
+        userID: action.payload.id,
+        username: action.payload.username
+      }
+    case 'LOGIN_USER_FAIL':
+      window.location.assign('/')
+      return {
+        ...state,
+        error: action.error
       }
     case 'LOGOUT_USER':
       return {
         ...state,
-        loggedIn: false
+        userID: '',
+        username: ''
       }
     default:
       return state

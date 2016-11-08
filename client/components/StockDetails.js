@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import CSSModules from 'react-css-modules'
 
 import Style from '../styles/components/StockDetails'
@@ -7,7 +7,7 @@ const StockDetails = (props) => {
   if (props.Message) return alert(props.Message)
 
   return (
-    <div className='center'>
+    <div>
         <h5>{ props.Symbol } {props.Name}</h5>
         <h6>${ props.LastPrice.toFixed(2) } &nbsp; { props.Change.toFixed(2) }%</h6>
       <span>
@@ -26,6 +26,14 @@ const StockDetails = (props) => {
       </span>
     </div>
   )
+}
+
+StockDetails.propTypes = {
+  Change: PropTypes.number.isRequired,
+  LastPrice: PropTypes.number.isRequired,
+  Message: PropTypes.string,
+  Name: PropTypes.string.isRequired,
+  Symbol: PropTypes.string.isRequired
 }
 
 export default CSSModules(StockDetails, Style)

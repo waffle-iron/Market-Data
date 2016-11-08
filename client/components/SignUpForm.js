@@ -11,7 +11,7 @@ const SignUpForm = (props) => {
       <form className='col s12' onSubmit={props.onSubmit}>
         <InputField label='Username' htmlFor='username'>
           <input className='validate' type='text'
-            name='email' onChange={props.onChange} />
+            name='username' onChange={props.onChange} />
         </InputField>
         <InputField label='Email' htmlFor='email'>
           <input className='validate' type='email'

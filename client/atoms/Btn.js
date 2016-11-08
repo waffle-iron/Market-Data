@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import CSSModules from 'react-css-modules'
 
 import Style from '../styles/atoms/Btn'
@@ -9,6 +9,12 @@ const Btn = (props) => {
       { props.text }
     </button>
   )
+}
+
+Btn.propTypes = {
+  name: PropTypes.string,
+  text: PropTypes.string.isRequired,
+  value: PropTypes.string
 }
 
 export default CSSModules(Btn, Style)

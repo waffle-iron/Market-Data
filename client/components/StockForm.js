@@ -5,10 +5,10 @@ import Style from '../styles/components/StockForm'
 
 const StockForm = (props) => {
   return (
-    <form className='col s6' onSubmit={props.onSubmit}>
+    <form styleName='root' onSubmit={props.onSubmit}>
       <div className='row'>
-        <div className='input-field col s12'>
-          <input className='validate' styleName='symbol-input' type='text'
+        <div className='input-field col s4'>
+          <input className='validate' type='text'
             onChange={props.onChange} value={props.value} />
         </div>
       </div>

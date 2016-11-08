@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import CSSModules from 'react-css-modules'
 
-import { createUser } from '../actions/userActions'
+import { registerUser } from '../actions/userActions'
 
 import SignUpForm from '../components/SignUpForm'
+import SignUpSuccess from '../components/SignUpSuccess'
 
 import Style from '../styles/containers/SignUp'
 
@@ -15,7 +16,8 @@ class SignUp extends Component {
     this.state = {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      success: false
     }
   }
   handleSubmit = (e) => {
@@ -29,23 +31,29 @@ class SignUp extends Component {
       return alert('Choose a password longer than 8 characters')
     }
 
-    if (this.state.username.match(/ /g)) {
+    /* if (this.state.username.match(/\s/)) {
       alert('Can\'t have any spaces in between!')
-    }
+    } */
 
-    dispatch(createUser(this.state))
+    dispatch(registerUser(this.state))
 
     this.setState({
       username: '',
       email: '',
-      password: ''
+      password: '',
+      success: true
     })
   }
   render() {
+    const { success } = this.state
+
     return (
       <div styleName='root'>
-        <SignUpForm onSubmit={this.handleSubmit} {...this.state}
-          onChange={(e) => this.setState({ [e.target.name]: e.target.value })} />
+        {
+          !success ? <SignUpForm onSubmit={this.handleSubmit} {...this.state}
+            onChange={(e) => this.setState({ [e.target.name]: e.target.value })} />
+          : <SignUpSuccess />
+        }
       </div>
     )
   }
