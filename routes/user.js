@@ -28,40 +28,45 @@ router.post('/register', (req, res) => {
               password_hash: hash,
               email
             })
-            .then(data => res.status(200).send('Account created successfully.'))
+            .then(data => {
+              res.status(200).send('Account created successfully.')
+              console.log('New user registered')
+            })
         })
     })
     .catch(error => res.send(error))
 })
 
 router.post('/login', (req, res) => {
-  const { email, username, password } = req.body
+  const { email, password } = req.body
 
   knex('users')
     .where({ email })
-    .select('password_hash')
     .then(data => {
-      const { password_hash } = data[0]
+      const { id, password_hash, username } = data[0]
 
       argon2.verify(password_hash, password)
         .then(match => {
           if (match) {
-            req.session.username = username
-            res.status(200).send()
+            req.session.id = id
+            res.status(200).send({ id, username })
             console.log('User logged in')
           } else {
             req.session.error = 'Access denied'
-            res.status(401).send('Incorrect password or email')
-            res.redirect('/')
+            res.status(401).send('Incorrect email or password')
           }
         })
     })
-    .catch(error => res.send(error))
+    .catch(error => res.status(401).send('Incorrect email or password'))
+})
+
+router.post('/logout', (req, res) => {
+  req.session.destroy()
+  res.send('Logging out...')
 })
 
 router.get('/dashboard', (req, res) => {
-  console.log(req.session)
-  if (!req.session.username) {
+  if (!req.session.id) {
     res.status(401).send()
   }
   res.status(200).send('Welcome to your dashboard')

@@ -3,8 +3,24 @@ const bhttp = require('bhttp')
 const router = express.Router()
 
 router.get('/:symbol', (req, res) => {
+  const { symbol } = req.params
   const baseURL = 'http://dev.markitondemand.com/MODApis/Api/v2/'
-  const endPoint = `${baseURL}Quote/json?symbol=${req.params.symbol}`
+  const endPoint = `${baseURL}Quote/json?symbol=${symbol}`
+
+  bhttp.get(endPoint, {}, (error, response) => {
+    if (error) console.log(error)
+    res.send(response.body.toString())
+  })
+})
+
+router.get('/input/:symbol', (req, res) => {
+  const baseURL = 'http://dev.markitondemand.com/MODApis/Api/v2/Lookup'
+})
+
+router.get('/chart/:symbol', (req, res) => {
+  const { symbol } = req.params
+  const baseURL = 'http://dev.markitondemand.com/MODApis/Api/v2/InteractiveChart/'
+  const endPoint = `${baseURL}json?parameters={"Normalized":false,"NumberOfDays":365,"DataPeriod":"Day","Elements":[{"Symbol":"${symbol}","Type":"price","Params":["c"]}]}`
 
   bhttp.get(endPoint, {}, (error, response) => {
     if (error) console.log(error)
