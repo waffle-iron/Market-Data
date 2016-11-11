@@ -9,11 +9,11 @@ export const isFetching = (bool) => {
 }
 
 const getStockQuoteSuccess = (payload) => {
-  return { type: 'GET_STOCK_QUOTE_DATA', payload }
+  return { type: 'GET_STOCK_QUOTE', payload }
 }
 
 const getStockQuoteFail = (error) => {
-  return { type: 'GET_STOCK_QUOTE_DATA', error }
+  return { type: 'GET_STOCK_QUOTE', error }
 }
 
 export const getStockQuote = (symbol) => {
@@ -23,6 +23,24 @@ export const getStockQuote = (symbol) => {
     axios.get(endPoint, axiosConfig)
       .then(response => dispatch(getStockQuoteSuccess(response.data)))
       .catch(error => dispatch(getStockQuoteFail(error.data)))
+  }
+}
+
+const getStockChartSuccess = (payload) => {
+  return { type: 'GET_STOCK_CHART', payload }
+}
+
+const getStockChartFail = (error) => {
+  return { type: 'GET_STOCK_CHART', error }
+}
+
+export const getStockChart = (symbol) => {
+  const endPoint = `/v1/stock/chart/${symbol}`
+
+  return dispatch => {
+    axios.get(endPoint, axiosConfig)
+      .then(response => dispatch(getStockChartSuccess(response.data)))
+      .catch(error => dispatch(getStockChartFail(error.data)))
   }
 }
 

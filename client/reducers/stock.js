@@ -12,7 +12,7 @@ const stock = (state = initialState, action) => {
         ...state,
         isFetching: action.payload
       }
-    case 'GET_STOCK_QUOTE_DATA':
+    case 'GET_STOCK_QUOTE':
       return Object.assign({}, state, {
         isFetching: false,
         quoteData: action.payload
