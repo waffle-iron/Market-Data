@@ -2,6 +2,18 @@ const express = require('express')
 const bhttp = require('bhttp')
 const router = express.Router()
 
+router.post('/watch/:symbol', (req, res) => {
+  res.send('You are now watching:', req.params.symbol)
+})
+
+router.post('/buy/:symbol', (req, res) => {
+  res.send('You just bought:', req.params.symbol)
+})
+
+router.post('/sell/:symbol', (req, res) => {
+  res.send('You just sold:', req.params.symbol)
+})
+
 router.get('/:symbol', (req, res) => {
   const endPoint = `http://api.fixer.io/latest?base=${req.params.symbol}`
 
@@ -9,18 +21,6 @@ router.get('/:symbol', (req, res) => {
     if (error) console.log(error)
     res.send(response.body.toString())
   })
-})
-
-router.post('/:symbol/watch', (req, res) => {
-  res.send('You are now watching:', req.params.symbol)
-})
-
-router.post('/:symbol/buy', (req, res) => {
-  res.send('You just bought:', req.params.symbol)
-})
-
-router.post('/:symbol/sell', (req, res) => {
-  res.send('You just sold:', req.params.symbol)
 })
 
 module.exports = router

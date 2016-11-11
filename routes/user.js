@@ -5,15 +5,6 @@ const config = require('../config.json')
 const pg = require('pg')
 const knex = require('knex')(config.knex)
 
-router.get('/:username', (req, res) => {
-  knex('user_profiles')
-    .where({
-        user_username: req.params.username
-    })
-    .then(data => res.send(data[0]))
-    .catch(error => res.send(error))
-})
-
 router.post('/register', (req, res) => {
   const { username, password, email } = req.body
 
@@ -48,9 +39,11 @@ router.post('/login', (req, res) => {
       argon2.verify(password_hash, password)
         .then(match => {
           if (match) {
+            console.log('Req Session')
             req.session.id = id
             res.status(200).send({ id, username })
             console.log('User logged in')
+            console.log(req.session)
           } else {
             req.session.error = 'Access denied'
             res.status(401).send('Incorrect email or password')
@@ -66,10 +59,20 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/dashboard', (req, res) => {
+  console.log(req.session)
   if (!req.session.id) {
     res.status(401).send()
   }
   res.status(200).send('Welcome to your dashboard')
+})
+
+router.get('/:username', (req, res) => {
+  knex('user_profiles')
+    .where({
+        user_username: req.params.username
+    })
+    .then(data => res.send(data[0]))
+    .catch(error => res.send(error))
 })
 
 module.exports = router
