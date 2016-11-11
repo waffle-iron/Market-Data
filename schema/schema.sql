@@ -1,6 +1,6 @@
 CREATE SEQUENCE id_sequence;
 CREATE OR REPLACE FUNCTION id_generator(
-    out new_id BIGINT
+    OUT new_id BIGINT
 ) AS $$
 DECLARE
     our_epoch BIGINT := 1072915200000;

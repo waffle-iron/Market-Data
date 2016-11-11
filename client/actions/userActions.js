@@ -23,12 +23,12 @@ export const getUserProfile = (username) => {
 }
 
 const registerUserSuccess = (payload) => {
-  return { type: 'REGISTER_USER', payload }
+  return { type: 'REGISTER_USER_SUCCESS', payload }
 }
 
 const registerUserFail = (error) => {
   console.log(error)
-  return { type: 'REGISTER_USER', error }
+  return { type: 'REGISTER_USER_FAIL', error }
 }
 
 export const registerUser = (userData) => {

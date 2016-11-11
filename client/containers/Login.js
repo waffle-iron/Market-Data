@@ -22,6 +22,7 @@ class Login extends Component {
     e.preventDefault()
 
     dispatch(loginUser(this.state))
+    this.props.close()
   }
   render() {
     return (

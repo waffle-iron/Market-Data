@@ -43,6 +43,8 @@ class SignUp extends Component {
       password: '',
       success: true
     })
+
+    this.props.close()
   }
   render() {
     const { success } = this.state

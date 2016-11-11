@@ -22,7 +22,7 @@ class Home extends Component {
     return (
       <div styleName='root'>
         <Modal ref='modal'>
-          { !loggedIn ? <SignUp /> : '' }
+          { !loggedIn ? <SignUp close={() => this.refs.modal.hide()} /> : '' }
         </Modal>
         <HeroSection onClick={() => this.refs.modal.show()} />
         <IconSection />

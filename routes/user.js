@@ -20,7 +20,7 @@ router.post('/register', (req, res) => {
               email
             })
             .then(data => {
-              res.status(200).send('Account created successfully.')
+              res.status(200).send('Registration Success!')
               console.log('New user registered')
             })
         })
@@ -39,10 +39,9 @@ router.post('/login', (req, res) => {
       argon2.verify(password_hash, password)
         .then(match => {
           if (match) {
-            console.log('Req Session')
-            req.session.id = id
+            req.session[id] = { id, email, username }
             res.status(200).send({ id, username })
-            console.log('User logged in')
+            console.log(id, username, 'logged in')
             console.log(req.session)
           } else {
             req.session.error = 'Access denied'
