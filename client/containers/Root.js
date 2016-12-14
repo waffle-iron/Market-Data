@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import Modal from 'boron/FlyModal'
 import CSSModules from 'react-css-modules'
 
+import { logoutUser } from '../actions/userActions'
+
 import Login from './Login'
 import SignUp from './SignUp'
 import NavBar from '../components/NavBar'
@@ -20,21 +22,29 @@ class Root extends Component {
   }
   handleClick = (e) => {
     this.setState({
-      modal: e.target.value
+      modal: e.target.name
     })
     this.refs.modal.show()
   }
+  handleLogout = () => {
+    const { dispatch } = this.props
+
+    dispatch(logoutUser())
+  }
   render() {
-    const { loggedIn } = this.props
+    const { loggedIn, username } = this.props
     const { modal } = this.state
+
+    console.log(this.props)
 
     return (
       <div>
-        <NavBar loggedIn={false} onClick={this.handleClick} />
+        <NavBar loggedIn={loggedIn} user={username}
+          onClick={this.handleClick} logout={this.handleLogout} />
         <Modal ref='modal'>
           { modal && !loggedIn ? (modal === 'login' ?
-            <Login onClick={this.handleClick} close={() => this.refs.modal.hide()} /> :
-            <SignUp onClick={this.handleClick} close={() => this.refs.modal.hide()} />) : '' }
+            <Login close={() => this.refs.modal.hide()} /> :
+            <SignUp close={() => this.refs.modal.hide()} />) : '' }
         </Modal>
         { this.props.children }
         <Footer />
@@ -44,8 +54,8 @@ class Root extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { loggedIn } = state.user
-  return { loggedIn }
+  const { loggedIn, username } = state.user
+  return { loggedIn, username }
 }
 
-export default connect()(CSSModules(Root, Style))
+export default connect(mapStateToProps)(CSSModules(Root, Style))

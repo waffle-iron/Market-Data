@@ -1,15 +1,16 @@
 import React, { PropTypes } from 'react'
 
 import NavItem from '../atoms/NavItem'
+import NavLoggedIn from './NavLoggedIn'
 
 const NavDesktop = (props) => {
   return (
     <ul className='right hide-on-med-and-down'>
       {
-        props.loggedIn ? <NavItem to='/dashboard' text='Dashboard' /> :
+        props.loggedIn ? <NavLoggedIn user={props.user} onClick={props.logout} /> :
         <div>
-          <li><a href='#' onClick={props.onClick} value='login'>Login</a></li>
-          <li><a href='#' onClick={props.onClick} value='signup'>Sign Up</a></li>
+          <li><a href='#' onClick={props.onClick} name='login'>Login</a></li>
+          <li><a href='#' onClick={props.onClick} name='signup'>Sign Up</a></li>
         </div>
       }
     </ul>

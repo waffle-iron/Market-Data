@@ -20,8 +20,7 @@ router.post('/register', (req, res) => {
               email
             })
             .then(data => {
-              res.status(200).send('Registration Success!')
-              console.log('New user registered')
+              console.log(data)
             })
         })
     })
@@ -39,7 +38,8 @@ router.post('/login', (req, res) => {
       argon2.verify(password_hash, password)
         .then(match => {
           if (match) {
-            req.session[id] = { id, email, username }
+            req.session.success = `Authenticated as ${username}`
+            req.session.user = username
             res.status(200).send({ id, username })
             console.log(id, username, 'logged in')
             console.log(req.session)
@@ -54,7 +54,7 @@ router.post('/login', (req, res) => {
 
 router.post('/logout', (req, res) => {
   req.session.destroy()
-  res.send('Logging out...')
+  res.status(200).send('Logging out...')
 })
 
 router.get('/dashboard', (req, res) => {

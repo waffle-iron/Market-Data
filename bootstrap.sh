@@ -2,12 +2,15 @@
 
 ln -s /vagrant/* ~/.
 
-sudo apt-get update
-# sudo apt-get install -y npm
-
 export DEBIAN_FRONTEND=noninteractive
+
+sudo apt-get update
+
 PG_VERSION=9.4
 sudo apt-get install -y postgresql-$PG_VERSION postgresql-contrib-$PG_VERSION
+
+# Install NVM
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
 
 # Postgresql Configuration files
 PG_CONF="/etc/postgresql/$PG_VERSION/main/postgresql.conf"
@@ -26,7 +29,6 @@ sudo bash -c "
 cat << EOF >> $PG_CONF
 client_encoding = utf8
 EOF
-
 cat << EOF >> $PG_HBA
 host    all             all             all                     md5
 EOF

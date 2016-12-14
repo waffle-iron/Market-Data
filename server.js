@@ -1,12 +1,12 @@
 const express = require('express')
 // const redis = require('redis')
-const app = express()
-// const client = redis.createClient()
 const path = require('path')
 const cors = require('cors')
 const session = require('express-session')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const app = express()
+// const client = redis.createClient()
 
 const { secret } = require('./secret.json')
 
@@ -24,7 +24,7 @@ app.use(cookieParser())
 app.use(session({
   secret,
   cookie: { maxAge: 60000 },
-  resave: false,
+  resave: true,
   saveUninitialized: true
 }))
 

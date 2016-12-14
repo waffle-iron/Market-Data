@@ -29,12 +29,12 @@ CREATE TABLE users (
     date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
     date_deleted TIMESTAMPTZ DEFAULT NULL,
     last_login TIMESTAMPTZ DEFAULT now() NOT NULL,
-    status VARCHAR(10) DEFAULT 'active',
+    status VARCHAR(10) DEFAULT 'new',
     verified BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE user_profiles (
-    id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
+    id SERIAL PRIMARY KEY,
     user_id BIGINT REFERENCES users(id) UNIQUE NOT NULL,
     username TEXT REFERENCES users(username) UNIQUE NOT NULL,
     avatar TEXT DEFAULT 'https://puu.sh/qlsJY/72d9b9920c.jpg',
@@ -42,7 +42,7 @@ CREATE TABLE user_profiles (
 );
 
 CREATE TABLE watchlists (
-    id SERIAL PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY,
     user_id BIGINT REFERENCES users(id) NOT NULL,
     name VARCHAR(25) DEFAULT 'Watchlist',
     date_created TIMESTAMPTZ DEFAULT now(),
@@ -51,16 +51,17 @@ CREATE TABLE watchlists (
 );
 
 CREATE TABLE watchlist_stocks (
-    id SERIAL PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY,
     user_id BIGINT REFERENCES users(id) NOT NULL,
     watchlist_id BIGINT REFERENCES watchlists(id) NOT NULL,
     symbol VARCHAR(20) NOT NULL,
     date_created TIMESTAMPTZ DEFAULT now(),
+    date_updated TIMESTAMPTZ DEFAULT now(),
     date_deleted TIMESTAMPTZ DEFAULT NULL
 );
 
 CREATE TABLE portfolios (
-    id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
+    id SERIAL PRIMARY KEY,
     user_id BIGINT REFERENCES users(id) NOT NULL,
     name VARCHAR(25) DEFAULT 'Portfolio',
     funds DECIMAL DEFAULT 100000,
@@ -71,23 +72,14 @@ CREATE TABLE portfolios (
 );
 
 CREATE TABLE stocks (
-    id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
+    id SERIAL PRIMARY KEY,
     user_id BIGINT REFERENCES users(id) NOT NULL,
     portfolio_id BIGINT REFERENCES portfolios(id) NOT NULL,
     symbol VARCHAR(20) NOT NULL,
     shares INTEGER DEFAULT 0,
+    action VARCHAR(10) NOT NULL, -- 'buy' or 'sell'
+    price DECIMAL NOT NULL,
     date_created TIMESTAMPTZ DEFAULT now(),
     date_updated TIMESTAMPTZ DEFAULT now(),
     date_deleted TIMESTAMPTZ DEFAULT NULL
-);
-
-CREATE TABLE stock_transactions (
-    id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
-    user_id BIGINT REFERENCES users(id) NOT NULL,
-    portfolio_id BIGINT REFERENCES portfolios(id) NOT NULL,
-    stock_id BIGINT REFERENCES stocks(id) NOT NULL,
-    buy_date TIMESTAMPTZ,
-    sell_date TIMESTAMPTZ,
-    buy_price DECIMAL,
-    sell_price DECIMAL
 );

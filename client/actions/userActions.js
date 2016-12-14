@@ -59,6 +59,26 @@ export const loginUser = (userData) => {
   }
 }
 
+const logoutUserSuccess = (payload) => {
+  return { type: 'LOGOUT_USER_SUCCESS', payload }
+}
+
+const logoutUserFail = (error) => {
+  return { type: 'LOGOUT_USER_FAIL', error }
+}
+
+export const logoutUser = () => {
+  const endPoint = '/v1/user/logout'
+
+  return (dispatch, getState) => {
+    const { userID, username } = getState().user
+
+    axios.post(endPoint, { id: userID, username }, axiosConfig)
+      .then(response => dispatch(logoutUserSuccess(response.data)))
+      .catch(error => dispatch(logoutUserFail(error.data)))
+  }
+}
+
 export const getPortfolio = () => {
   const endPoint = `/v1/user/portfolio`
 
