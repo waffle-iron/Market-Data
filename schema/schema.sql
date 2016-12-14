@@ -25,7 +25,7 @@ CREATE TABLE users (
     birth_date TIMESTAMPTZ DEFAULT NULL,
     email VARCHAR(65) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    date_created TIMESTAMPTZ DEFAULT now() NOT NULL,
+    date_created TIMESTAMPTZ DEFAULT now(),
     date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
     date_deleted TIMESTAMPTZ DEFAULT NULL,
     last_login TIMESTAMPTZ DEFAULT now() NOT NULL,
@@ -38,7 +38,10 @@ CREATE TABLE user_profiles (
     user_id BIGINT REFERENCES users(id) UNIQUE NOT NULL,
     username TEXT REFERENCES users(username) UNIQUE NOT NULL,
     avatar TEXT DEFAULT 'https://puu.sh/qlsJY/72d9b9920c.jpg',
-    bio TEXT DEFAULT 'Random information about me.'
+    bio TEXT DEFAULT 'Random information about me.',
+    date_created TIMESTAMPTZ DEFAULT now(),
+    date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
+    date_deleted TIMESTAMPTZ DEFAULT NULL
 );
 
 CREATE TABLE watchlists (
