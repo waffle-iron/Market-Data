@@ -19,26 +19,76 @@ LANGUAGE PLPGSQL;
 
 CREATE TABLE users (
     id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
-    username VARCHAR(35) UNIQUE NOT NULL,
-    first_name VARCHAR(25),
-    last_name VARCHAR(25),
-    birth_date TIMESTAMPTZ DEFAULT NULL,
     email VARCHAR(65) UNIQUE NOT NULL,
+    username VARCHAR(35) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
+    first_name VARCHAR(55),
+    last_name VARCHAR(55),
+    birthday TIMESTAMPTZ DEFAULT NULL,
+    avatar_url TEXT DEFAULT 'https://puu.sh/qlsJY/72d9b9920c.jpg',
+    bio VARCHAR(255),
+    last_login TIMESTAMPTZ DEFAULT now() NOT NULL,
+    status VARCHAR(10) DEFAULT 'NEW',
+    verified BOOLEAN DEFAULT FALSE,
     date_created TIMESTAMPTZ DEFAULT now(),
     date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
-    date_deleted TIMESTAMPTZ DEFAULT NULL,
-    last_login TIMESTAMPTZ DEFAULT now() NOT NULL,
-    status VARCHAR(10) DEFAULT 'new',
-    verified BOOLEAN DEFAULT FALSE
+    date_deleted TIMESTAMPTZ DEFAULT NULL
 );
 
-CREATE TABLE user_profiles (
-    id SERIAL PRIMARY KEY,
+CREATE TABLE account_settings (
+    id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
     user_id BIGINT REFERENCES users(id) UNIQUE NOT NULL,
-    username TEXT REFERENCES users(username) UNIQUE NOT NULL,
-    avatar TEXT DEFAULT 'https://puu.sh/qlsJY/72d9b9920c.jpg',
-    bio TEXT DEFAULT 'Random information about me.',
+    notification_alerts BOOLEAN DEFAULT TRUE,
+    membership VARCHAR(10) DEFAULT 'FREE',
+    date_created TIMESTAMPTZ DEFAULT now(),
+    date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
+    date_deleted TIMESTAMPTZ DEFAULT NULL
+);
+
+CREATE TABLE symbols (
+    id SERIAL PRIMARY KEY,
+    symbol VARCHAR(15) UNIQUE NOT NULL,
+    exchange VARCHAR(155) NOT NULL,
+    upvotes INTEGER DEFAULT 1,
+    downvotes INTEGER DEFAULT 0,
+    hashtags JSON,
+    date_created TIMESTAMPTZ DEFAULT now(),
+    date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
+    date_deleted TIMESTAMPTZ DEFAULT NULL
+);
+
+CREATE TABLE symbol_comments (
+    id SERIAL PRIMARY KEY,
+    symbol_id REFERENCES symbols(id) NOT NULL,
+    user_id REFERENCES users(id) NOT NULL,
+    comment TEXT NOT NULL,
+    upvotes INTEGER DEFAULT 1,
+    downvotes INTEGER DEFAULT 0,
+    status VARCHAR(10) DEFAULT 'APPROVED',
+    date_created TIMESTAMPTZ DEFAULT now(),
+    date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
+    date_deleted TIMESTAMPTZ DEFAULT NULL
+);
+
+CREATE TABLE commodities (
+  id SERIAL PRIMARY KEY,
+  commodity VARCHAR(155) UNIQUE NOT NULL,
+  upvotes INTEGER DEFAULT 1,
+  downvotes INTEGER DEFAULT 0,
+  hashtags JSON,
+  date_created TIMESTAMPTZ DEFAULT now(),
+  date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
+  date_deleted TIMESTAMPTZ DEFAULT NULL
+);
+
+CREATE TABLE commodity_comments (
+    id SERIAL PRIMARY KEY,
+    symbol_id REFERENCES symbols(id) NOT NULL,
+    user_id REFERENCES users(id) NOT NULL,
+    comment TEXT NOT NULL,
+    upvotes INTEGER DEFAULT 1,
+    downvotes INTEGER DEFAULT 0,
+    status VARCHAR(10) DEFAULT 'APPROVED',
     date_created TIMESTAMPTZ DEFAULT now(),
     date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
     date_deleted TIMESTAMPTZ DEFAULT NULL
@@ -48,6 +98,7 @@ CREATE TABLE watchlists (
     id SERIAL PRIMARY KEY,
     user_id BIGINT REFERENCES users(id) NOT NULL,
     name VARCHAR(25) DEFAULT 'Watchlist',
+    private BOOLEAN DEFAULT FALSE,
     date_created TIMESTAMPTZ DEFAULT now(),
     date_updated TIMESTAMPTZ DEFAULT now(),
     date_deleted TIMESTAMPTZ DEFAULT NULL
@@ -68,18 +119,33 @@ CREATE TABLE portfolios (
     user_id BIGINT REFERENCES users(id) NOT NULL,
     name VARCHAR(25) DEFAULT 'Portfolio',
     funds DECIMAL DEFAULT 100000,
+    private BOOLEAN DEFAULT TRUE,
+    status VARCHAR(10) DEFAULT 'active',
     date_created TIMESTAMPTZ DEFAULT now(),
     date_updated TIMESTAMPTZ DEFAULT now(),
     date_deleted TIMESTAMPTZ DEFAULT NULL,
-    status VARCHAR(10) DEFAULT 'active'
 );
 
-CREATE TABLE stocks (
+CREATE TABLE portfolio_stocks (
     id SERIAL PRIMARY KEY,
     user_id BIGINT REFERENCES users(id) NOT NULL,
     portfolio_id BIGINT REFERENCES portfolios(id) NOT NULL,
     symbol VARCHAR(20) NOT NULL,
     shares INTEGER DEFAULT 0,
+    action VARCHAR(10) NOT NULL, -- 'buy' or 'sell'
+    price DECIMAL NOT NULL,
+    date_created TIMESTAMPTZ DEFAULT now(),
+    date_updated TIMESTAMPTZ DEFAULT now(),
+    date_deleted TIMESTAMPTZ DEFAULT NULL
+);
+
+CREATE TABLE portfolio_commodities (
+    id SERIAL PRIMARY KEY,
+    user_id BIGINT REFERENCES users(id) NOT NULL,
+    portfolio_id BIGINT REFERENCES portfolios(id) NOT NULL,
+    commodity VARCHAR(155) NOT NULL,
+    quantity INTEGER NOT NULL,
+    metric VARCHAR(25) TEXT NOT NULL,
     action VARCHAR(10) NOT NULL, -- 'buy' or 'sell'
     price DECIMAL NOT NULL,
     date_created TIMESTAMPTZ DEFAULT now(),
