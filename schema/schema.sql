@@ -17,6 +17,8 @@ END;
 $$
 LANGUAGE PLPGSQL;
 
+CREATE TYPE user_status AS ENUM ('NEW', 'ACTIVE', 'DEACTIVATED', 'BANNED');
+
 CREATE TABLE users (
     id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
     email VARCHAR(65) UNIQUE NOT NULL,
@@ -28,18 +30,20 @@ CREATE TABLE users (
     avatar_url TEXT DEFAULT 'https://puu.sh/qlsJY/72d9b9920c.jpg',
     bio VARCHAR(255),
     last_login TIMESTAMPTZ DEFAULT now() NOT NULL,
-    status VARCHAR(10) DEFAULT 'NEW',
+    status user_status DEFAULT 'NEW',
     verified BOOLEAN DEFAULT FALSE,
     date_created TIMESTAMPTZ DEFAULT now(),
     date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
     date_deleted TIMESTAMPTZ DEFAULT NULL
 );
 
+CREATE TYPE account_membership AS ENUM ('FREE', 'TIER_ONE', 'TIER_TWO');
+
 CREATE TABLE account_settings (
     id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
     user_id BIGINT REFERENCES users(id) UNIQUE NOT NULL,
     notification_alerts BOOLEAN DEFAULT TRUE,
-    membership VARCHAR(10) DEFAULT 'FREE',
+    membership account_membership DEFAULT 'FREE',
     date_created TIMESTAMPTZ DEFAULT now(),
     date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
     date_deleted TIMESTAMPTZ DEFAULT NULL
