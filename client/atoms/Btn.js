@@ -12,6 +12,7 @@ const Btn = (props) => {
 }
 
 Btn.propTypes = {
+  onClick: PropTypes.func,
   name: PropTypes.string,
   text: PropTypes.string.isRequired,
   value: PropTypes.string

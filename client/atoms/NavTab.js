@@ -17,6 +17,7 @@ const NavTab = (props) => {
 
 NavTab.propTypes = {
   isActive: PropTypes.bool.isRequired,
+  onClick: PropTypes.func,
   name: PropTypes.string.isRequired,
   value: PropTypes.string
 }

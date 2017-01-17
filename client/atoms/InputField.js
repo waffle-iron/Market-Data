@@ -14,6 +14,11 @@ const InputField = (props) => {
 }
 
 InputField.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
+  htmlFor: PropTypes.string,
   label: PropTypes.string.isRequired
 }
 

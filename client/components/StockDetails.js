@@ -32,6 +32,7 @@ StockDetails.propTypes = {
   Change: PropTypes.number.isRequired,
   LastPrice: PropTypes.number.isRequired,
   Message: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
   Name: PropTypes.string.isRequired,
   Symbol: PropTypes.string.isRequired
 }

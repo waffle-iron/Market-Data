@@ -12,4 +12,9 @@ const NavLoggedIn = (props) => {
   )
 }
 
+NavLoggedIn.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  user: PropTypes.string
+}
+
 export default NavLoggedIn

@@ -23,7 +23,10 @@ const NavMobile = (props) => {
 }
 
 NavMobile.propTypes = {
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  logout: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  user: PropTypes.string
 }
 
 export default NavMobile

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import CSSModules from 'react-css-modules'
 
 import InputField from '../atoms/InputField'
@@ -33,6 +33,12 @@ const SignUpForm = (props) => {
       </form>
     </div>
   )
+}
+
+SignUpForm.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired
 }
 
 export default CSSModules(SignUpForm, Style)

@@ -12,6 +12,7 @@ const Input = (props) => {
 }
 
 Input.propTypes = {
+  onChange: PropTypes.func.isRequired,
   name: PropTypes.string,
   placeholder: PropTypes.string,
   style: PropTypes.string,
