@@ -1,5 +1,5 @@
-const express = require('express')
 const config = require('./config.json')
+const express = require('express')
 const pg = require('pg')
 const knex = require('knex')(config.knex)
 const path = require('path')
@@ -7,6 +7,7 @@ const cors = require('cors')
 const session = require('express-session')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const helmet = require('helmet')
 // const redis = require('redis')
 
 const app = express()
@@ -21,15 +22,19 @@ const stock = require('./routes/stock')(knex)
 const user = require('./routes/user')(knex)
 
 app.use(cors())
-
+app.use(helmet())
 app.use(bodyParser.json())
-
 app.use(cookieParser())
+
 app.use(session({
   secret,
-  cookie: { maxAge: 60000 },
+  name: 'sessionID',
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    secure: true,
+    expires: new Date(Date.now() + 60 * 60 * 1000) // 1 Hour
+  }
 }))
 
 app.use(express.static(staticPath))
