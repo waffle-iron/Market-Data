@@ -1,10 +1,14 @@
 const express = require('express')
-// const redis = require('redis')
+const config = require('./config.json')
+const pg = require('pg')
+const knex = require('knex')(config.knex)
 const path = require('path')
 const cors = require('cors')
 const session = require('express-session')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+// const redis = require('redis')
+
 const app = express()
 // const client = redis.createClient()
 
@@ -12,9 +16,9 @@ const { secret } = require('./secret.json')
 
 const staticPath = path.join(__dirname, 'static')
 
-const currency = require('./routes/currency')
-const stock = require('./routes/stock')
-const user = require('./routes/user')
+const currency = require('./routes/currency')(knex)
+const stock = require('./routes/stock')(knex)
+const user = require('./routes/user')(knex)
 
 app.use(cors())
 
@@ -34,6 +38,7 @@ app.use('/v1/currency', currency)
 app.use('/v1/stock', stock)
 app.use('/v1/user', user)
 
+// Server-side rendering for React
 app.get('*', (req, res) => {
   res.sendFile('index.html', {
     root: staticPath
