@@ -1,12 +1,12 @@
 import React from 'react'
+import sinon from 'sinon'
 import { expect } from 'chai'
 import { mount, shallow } from 'enzyme'
-import sinon from 'sinon'
 
 import Btn from '../../client/atoms/Btn'
 
 describe('<Btn />', () => {
-  it('should render text properly', () => {
+  it('should render button text', () => {
     const wrapper = mount(<Btn text='Random text' />)
     expect(wrapper.text()).to.equal('Random text')
   })
