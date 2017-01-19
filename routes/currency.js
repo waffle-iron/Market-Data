@@ -4,15 +4,27 @@ const router = express.Router()
 
 module.exports = (knex) => {
   router.post('/watch/:symbol', (req, res) => {
-    res.send('You are now watching:', req.params.symbol)
+    if (req.session.userID) {
+      res.send('You are now watching:', req.params.symbol)
+    } else {
+      res.status(401).send('Not authorized')
+    }
   })
 
   router.post('/buy/:symbol', (req, res) => {
-    res.send('You just bought:', req.params.symbol)
+    if (req.session.userID) {
+      res.send('You just bought:', req.params.symbol)
+    } else {
+      res.status(401).send('Not Authorized')
+    }
   })
 
   router.post('/sell/:symbol', (req, res) => {
-    res.send('You just sold:', req.params.symbol)
+    if (req.session.userID) {
+      res.send('You just sold:', req.params.symbol)
+    } else {
+      res.status(401).send('Not Authorized')
+    }
   })
 
   router.get('/:symbol', (req, res) => {
