@@ -37,7 +37,7 @@ const SignUpForm = (props) => {
 
 SignUpForm.propTypes = {
   onChange: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   onSubmit: PropTypes.func.isRequired
 }
 
