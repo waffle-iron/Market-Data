@@ -68,7 +68,7 @@ CREATE TABLE symbol_comments (
   comment TEXT NOT NULL,
   upvotes INTEGER DEFAULT 1,
   downvotes INTEGER DEFAULT 0,
-  status VARCHAR(10) DEFAULT 'APPROVED',
+  flagged BOOLEAN DEFAULT FALSE,
   date_created TIMESTAMPTZ DEFAULT now(),
   date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
   date_deleted TIMESTAMPTZ DEFAULT NULL
@@ -92,7 +92,7 @@ CREATE TABLE commodity_comments (
   comment TEXT NOT NULL,
   upvotes INTEGER DEFAULT 1,
   downvotes INTEGER DEFAULT 0,
-  status VARCHAR(10) DEFAULT 'APPROVED',
+  flagged BOOLEAN DEFAULT FALSE,
   date_created TIMESTAMPTZ DEFAULT now(),
   date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
   date_deleted TIMESTAMPTZ DEFAULT NULL
@@ -111,12 +111,14 @@ CREATE TABLE watchlists (
 CREATE TABLE watchlist_stocks (
   id SERIAL PRIMARY KEY,
   user_id BIGINT REFERENCES users(id) NOT NULL,
-  watchlist_id BIGINT REFERENCES watchlists(id) NOT NULL,
+  watchlist_id INTEGER REFERENCES watchlists(id) NOT NULL,
   symbol VARCHAR(20) NOT NULL,
   date_created TIMESTAMPTZ DEFAULT now(),
   date_updated TIMESTAMPTZ DEFAULT now(),
   date_deleted TIMESTAMPTZ DEFAULT NULL
 );
+
+CREATE TYPE portfolio_status AS ENUM ('ACTIVE', 'INACTIVE');
 
 CREATE TABLE portfolios (
   id SERIAL PRIMARY KEY,
@@ -124,33 +126,44 @@ CREATE TABLE portfolios (
   name VARCHAR(25) DEFAULT 'Portfolio',
   funds DECIMAL DEFAULT 100000,
   private BOOLEAN DEFAULT TRUE,
-  status VARCHAR(10) DEFAULT 'active',
+  status portfolio_status DEFAULT 'ACTIVE',
   date_created TIMESTAMPTZ DEFAULT now(),
   date_updated TIMESTAMPTZ DEFAULT now(),
-  date_deleted TIMESTAMPTZ DEFAULT NULL,
+  date_deleted TIMESTAMPTZ DEFAULT NULL
 );
+
+CREATE TABLE portfolio_history (
+  id SERIAL PRIMARY KEY,
+  portfolio_id INTEGER REFERENCES portfolios(id) NOT NULL,
+  funds DECIMAL,
+  date_created TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TYPE stock_action AS ENUM ('BUY', 'SELL');
 
 CREATE TABLE portfolio_stocks (
   id SERIAL PRIMARY KEY,
   user_id BIGINT REFERENCES users(id) NOT NULL,
-  portfolio_id BIGINT REFERENCES portfolios(id) NOT NULL,
+  portfolio_id INTEGER REFERENCES portfolios(id) NOT NULL,
   symbol VARCHAR(20) NOT NULL,
   shares INTEGER DEFAULT 0,
-  action VARCHAR(10) NOT NULL, -- 'buy' or 'sell'
+  action stock_action NOT NULL,
   price DECIMAL NOT NULL,
   date_created TIMESTAMPTZ DEFAULT now(),
   date_updated TIMESTAMPTZ DEFAULT now(),
   date_deleted TIMESTAMPTZ DEFAULT NULL
 );
 
+CREATE TYPE commodity_action AS ENUM ('BUY', 'SELL');
+
 CREATE TABLE portfolio_commodities (
   id SERIAL PRIMARY KEY,
   user_id BIGINT REFERENCES users(id) NOT NULL,
-  portfolio_id BIGINT REFERENCES portfolios(id) NOT NULL,
+  portfolio_id INTEGER REFERENCES portfolios(id) NOT NULL,
   commodity VARCHAR(155) NOT NULL,
   quantity INTEGER NOT NULL,
   metric VARCHAR(25) TEXT NOT NULL,
-  action VARCHAR(10) NOT NULL, -- 'buy' or 'sell'
+  action commodity_action NOT NULL,
   price DECIMAL NOT NULL,
   date_created TIMESTAMPTZ DEFAULT now(),
   date_updated TIMESTAMPTZ DEFAULT now(),
