@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const axiosConfig = {
-  baseURL: 'http://localhost:8080/'
+  baseURL: 'http://localhost:8080/',
+  withCredentials: true
 }
 
 const getRatesSuccess = (payload) => {
@@ -19,5 +20,25 @@ export const getRates = (symbol) => {
     axios.get(endPoint, axiosConfig)
       .then(response => dispatch(getRatesSuccess(response.data)))
       .catch(error => dispatch(getRatesFail(error.data)))
+  }
+}
+
+const currencyActionSuccess = (action, payload) => {
+  const currencyAction = action.toUpperCase()
+  return { type: `${currencyAction}_STOCK_SYMBOL_SUCCESS`, payload }
+}
+
+const currencyActionFail = (action, error) => {
+  const currencyAction = action.toUpperCase()
+  return { type: `${currencyAction}_STOCK_SYMBOL_FAIL`, error }
+}
+
+const currencyAction = (action, symbol) => {
+  const endPoint = `/v1/currency/${action}/${symbol}`
+
+  return dispatch => {
+    axios.post(endPoint, symbol, axiosConfig)
+      .then(response => dispatch(currencyActionSuccess(action, response.data)))
+      .catch(error => dispatch(currencyActionFail(action, error.data)))
   }
 }

@@ -4,7 +4,9 @@ import { create } from 'guid'
 import CSSModules from 'react-css-modules'
 
 import { getStockQuote } from '../actions/stockActions'
+import { getUserDashboard, logoutUser } from '../actions/userActions'
 
+import Btn from '../atoms/Btn'
 import NavTab from '../atoms/NavTab'
 import Portfolio from '../components/Portfolio'
 import PortfolioSummary from '../components/PortfolioSummary'
@@ -20,15 +22,20 @@ class Dashboard extends Component {
     super(props)
 
     this.state = {
+      loading: true,
       symbolData: false,
       stockSymbol: '',
       view: 'portfolio'
     }
   }
+  componentWillMount() {
+    const { dispatch } = this.props
+    dispatch(getUserDashboard())
+  }
   componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props) {
+    if (nextProps.dashboard !== this.props.dashboard) {
       this.setState({
-        symbolData: true
+        loading: false
       })
     }
   }
@@ -43,8 +50,8 @@ class Dashboard extends Component {
     })
   }
   render() {
-    const { stockSymbol, symbolData, view } = this.state
-    const { quoteData } = this.props
+    const { loading, stockSymbol, symbolData, view } = this.state
+    const { dispatch, dashboard, quoteData } = this.props
     const tabValues = [
       { name: 'Trades', value: 'trades' },
       { name: 'Portfolio', value: 'portfolio' },
@@ -59,7 +66,7 @@ class Dashboard extends Component {
             value={stockSymbol} />
           { symbolData ? <StockDetails {...quoteData} /> : '' }
         </div>
-        <PortfolioSummary />
+        { loading ? 'Loading...' : <PortfolioSummary {...dashboard} /> }
         <div className='container col s6'>
           <ul className='tabs tabs-fixed-width'>
             { tabValues.map(tab => <NavTab {...tab} key={create().value}
@@ -77,7 +84,8 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => {
   const { quoteData } = state.stock
-  return { quoteData }
+  const { dashboard } = state.user
+  return { dashboard, quoteData }
 }
 
 export default connect(mapStateToProps)(CSSModules(Dashboard, Style))

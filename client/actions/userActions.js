@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const axiosConfig = {
-  baseURL: 'http://localhost:8080/'
+  baseURL: 'http://localhost:8080/',
+  withCredentials: true
 }
 
 const userProfileSuccess = (payload) => {
@@ -79,10 +80,20 @@ export const logoutUser = () => {
   }
 }
 
-export const getPortfolio = () => {
-  const endPoint = `/v1/user/portfolio`
+const getUserDashboardSuccess = (payload) => {
+  return { type: 'GET_USER_DASHBOARD_SUCCESS', payload }
+}
+
+const getUserDashboardFail = (error) => {
+  return { type: 'GET_USER_DASHBOARD_FAIL', error }
+}
+
+export const getUserDashboard = () => {
+  const endPoint = `/v1/user/dashboard`
 
   return dispatch => {
-    // To be finished
+    axios.get(endPoint, axiosConfig)
+      .then(response => dispatch(getUserDashboardSuccess(response.data)))
+      .catch(error => dispatch(getUserDashboardFail(error.data)))
   }
 }

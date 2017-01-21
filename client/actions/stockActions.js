@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 const axiosConfig = {
-  baseURL: 'http://localhost:8080/'
+  baseURL: 'http://localhost:8080/',
+  withCredentials: true
 }
 
 export const isFetching = (bool) => {
@@ -44,38 +45,22 @@ export const getStockChart = (symbol) => {
   }
 }
 
-const buyStockSuccess = (payload) => {
-  return { type: 'BUY_STOCK_SYMBOL', payload }
+const stockActionSuccess = (action, payload) => {
+  const stockAction = action.toUpperCase()
+  return { type: `${stockAction}_STOCK_SYMBOL_SUCCESS`, payload }
 }
 
-const buyStockFail = (error) => {
-  return { type: 'BUY_STOCK_SYMBOL', error }
+const stockActionFail = (action, error) => {
+  const stockAction = action.toUpperCase()
+  return { type: `${stockAction}_STOCK_SYMBOL_FAIL`, error }
 }
 
-export const buyStock = (symbol) => {
-  const endPoint = `/v1/stock/buy/${symbol}`
-}
+const stockAction = (action, symbol) => {
+  const endPoint = `/v1/stock/${action}/${symbol}`
 
-const sellStockSuccess = (payload) => {
-  return { type: 'SELL_STOCK_SYMBOL', payload }
-}
-
-const sellStockFail = (error) => {
-  return { type: 'SELL_STOCK_SYMBOL', error }
-}
-
-export const sellStock = (symbol) => {
-  const endPoint = `/v1/stock/sell/${symbol}`
-}
-
-const watchStockSuccess = (payload) => {
-  return { type: 'WATCH_STOCK_SYMBOL', payload }
-}
-
-const watchStockFail = (payload) => {
-  return { type: 'WATCH_STOCK_SYMBOL', error }
-}
-
-export const watchStock = (symbol) => {
-  const endPoint = `/v1/stock/watch/${symbol}`
+  return dispatch => {
+    axios.post(endPoint, symbol, axiosConfig)
+      .then(response => dispatch(stockActionSuccess(action, response.data)))
+      .catch(error => dispatch(stockActionFail(action, error.data)))
+  }
 }

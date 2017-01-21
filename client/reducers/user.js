@@ -1,20 +1,18 @@
 import { browserHistory } from 'react-router'
 
-const { id, username } = JSON.parse(localStorage.getItem('user'))
-
-if (localStorage.getItem('user')) {
-  const { id, username } = JSON.parse(localStorage.getItem('user'))
-}
+// const { id = null, username = null } = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {
-  loggedIn: id && username ? true : false,
-  userID: id || '',
-  username: username || '',
+  // loggedIn: id && username ? true : false,
+  // userID: id,
+  // username: username,
+  dashboard: {},
+  loggedIn: false,
+  userID: '',
+  username: '',
   profileData: {},
   error: ''
 }
-
-console.log(initialState)
 
 const user = (state = initialState, action) => {
   console.log(action)
@@ -59,6 +57,13 @@ const user = (state = initialState, action) => {
       }
     case 'LOGOUT_USER_FAIL':
       return { ...state, error: action.error }
+    case 'GET_USER_DASHBOARD_SUCCESS':
+      return {
+        ...state,
+        dashboard: action.payload
+      }
+    case 'GET_USER_DASHBOARD_FAIL':
+      return { ...state, dashboard: null }
     default:
       return state
   }
