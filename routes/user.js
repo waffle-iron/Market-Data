@@ -1,75 +1,91 @@
 const express = require('express')
 const argon2 = require('argon2')
+const Promise = require('bluebird')
 const router = express.Router()
 
 module.exports = (knex) => {
   router.post('/register', (req, res) => {
     const { username, password, email } = req.body
 
-    // 32 byte length salt
-    argon2.generateSalt(32)
-      .then(salt => {
-        argon2.hash(password, salt)
-          .then(hash => {
-            knex('users')
-              .returning(['id', 'email'])
-              .insert({
-                username,
-                password_hash: hash,
-                email
-              })
-              .then(data => {
-                console.log(data)
-                res.send(data)
-              })
-          })
-      })
-      .catch(error => res.send(error))
+    Promise.try(() => {
+      return argon2.generateSalt(32)
+    }).then(salt => {
+      return argon2.hash(password, salt)
+    }).then(hash => {
+      return knex('users')
+        .returning(['id', 'email'])
+        .insert({
+          email,
+          username,
+          password_hash: hash
+        })
+    }).then(data => {
+      const { id } = data[0]
+      return knex('portfolios')
+        .returning(['user_id'])
+        .insert({
+          user_id: id
+        })
+    }).then(data => {
+      const { user_id } = data[0]
+      return knex('watchlists')
+        .returning(['user_id'])
+        .insert({
+          user_id
+        })
+    }).then(data => {
+      const { user_id } = data[0]
+      req.session.userID = user_id
+      res.status(200).send('Account created successfully')
+    })
   })
 
   router.post('/login', (req, res) => {
     const { email, password } = req.body
 
-    knex('users')
-      .where({
-        email,
-        date_deleted: null
-      })
-      .then(data => {
-        const { id, password_hash, username } = data[0]
-
+    Promise.try(() => {
+      return knex('users')
+        .where({
+          email,
+          date_deleted: null
+        })
+    }).then(data => {
+      const { id, username, password_hash } = data[0]
+      return Promise.all([
+        { id, username },
         argon2.verify(password_hash, password)
-          .then(match => {
-            if (match) {
-              // req.session.id = id
-              req.session.userID = id
-              console.log(id, username, 'has logged in')
-              console.log(req.session)
-              res.status(200).send({ id, username })
-            } else {
-              req.session.error = 'Access denied'
-              res.status(401).send('Incorrect email or password')
-            }
+      ])
+    }).spread((user, match) => {
+      if (match) {
+        req.session.userID = user.id
+        res.status(200).send(user)
+      } else {
+        req.session.error = 'Access denied'
+        res.status(401).send('Incorrect email or password')
+      }
+    })
+  })
+
+  router.get('/dashboard', (req, res) => {
+    if (req.session.userID) {
+      Promise.try(() => {
+        return knex('portfolios')
+          .where({
+            user_id: req.session.userID
           })
+      }).then(data => {
+        const { name, funds, private } = data[0]
+        res.status(200).send({ name, funds, private })
       })
-      .catch(error => res.status(401).send('Incorrect email or password'))
+    } else {
+      res.status(401).send({ status: false, message: 'Not Authorized' })
+    }
   })
 
   router.post('/logout', (req, res) => {
     req.session.destroy()
     console.log('Logging out...')
     res.status(200).send('Logging out...')
-  })
-
-  router.get('/dashboard', (req, res) => {
-    console.log('Getting dashboard data...')
-    if (req.sessionID && req.session.userID) {
-      console.log('SUCCESS')
-      res.status(200).send({ status: true, message: 'Welcome to your dashboard!' })
-    } else {
-      console.log('FAIL')
-      res.status(401).send({ status: false, message: 'Not Authorized' })
-    }
   })
 
   router.get('/:username', (req, res) => {
