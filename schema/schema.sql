@@ -18,6 +18,9 @@ $$
 LANGUAGE PLPGSQL;
 
 CREATE TYPE user_status AS ENUM ('NEW', 'ACTIVE', 'DEACTIVATED', 'BANNED');
+CREATE TYPE account_membership AS ENUM ('FREE', 'TIER_ONE', 'TIER_TWO');
+CREATE TYPE portfolio_status AS ENUM ('ACTIVE', 'INACTIVE');
+CREATE TYPE trade_action AS ENUM ('BUY', 'SELL');
 
 CREATE TABLE users (
   id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
@@ -36,8 +39,6 @@ CREATE TABLE users (
   date_updated TIMESTAMPTZ DEFAULT now() NOT NULL,
   date_deleted TIMESTAMPTZ DEFAULT NULL
 );
-
-CREATE TYPE account_membership AS ENUM ('FREE', 'TIER_ONE', 'TIER_TWO');
 
 CREATE TABLE account_settings (
   id BIGINT PRIMARY KEY NOT NULL DEFAULT id_generator(),
@@ -63,7 +64,7 @@ CREATE TABLE symbols (
 
 CREATE TABLE symbol_comments (
   id SERIAL PRIMARY KEY,
-  symbol_id REFERENCES symbols(id) NOT NULL,
+  symbol_id INTEGER REFERENCES symbols(id) NOT NULL,
   user_id REFERENCES users(id) NOT NULL,
   comment TEXT NOT NULL,
   upvotes INTEGER DEFAULT 1,
@@ -118,8 +119,6 @@ CREATE TABLE watchlist_stocks (
   date_deleted TIMESTAMPTZ DEFAULT NULL
 );
 
-CREATE TYPE portfolio_status AS ENUM ('ACTIVE', 'INACTIVE');
-
 CREATE TABLE portfolios (
   id SERIAL PRIMARY KEY,
   user_id BIGINT REFERENCES users(id) NOT NULL,
@@ -139,22 +138,19 @@ CREATE TABLE portfolio_history (
   date_created TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TYPE stock_action AS ENUM ('BUY', 'SELL');
-
 CREATE TABLE portfolio_stocks (
   id SERIAL PRIMARY KEY,
   user_id BIGINT REFERENCES users(id) NOT NULL,
   portfolio_id INTEGER REFERENCES portfolios(id) NOT NULL,
+  company_name VARCHAR(255) NOT NULL,
   symbol VARCHAR(20) NOT NULL,
   shares INTEGER DEFAULT 0,
-  action stock_action NOT NULL,
+  action trade_action NOT NULL,
   price DECIMAL NOT NULL,
   date_created TIMESTAMPTZ DEFAULT now(),
   date_updated TIMESTAMPTZ DEFAULT now(),
   date_deleted TIMESTAMPTZ DEFAULT NULL
 );
-
-CREATE TYPE commodity_action AS ENUM ('BUY', 'SELL');
 
 CREATE TABLE portfolio_commodities (
   id SERIAL PRIMARY KEY,
@@ -162,8 +158,8 @@ CREATE TABLE portfolio_commodities (
   portfolio_id INTEGER REFERENCES portfolios(id) NOT NULL,
   commodity VARCHAR(155) NOT NULL,
   quantity INTEGER NOT NULL,
-  metric VARCHAR(25) TEXT NOT NULL,
-  action commodity_action NOT NULL,
+  metric VARCHAR(25) NOT NULL,
+  action trade_action NOT NULL,
   price DECIMAL NOT NULL,
   date_created TIMESTAMPTZ DEFAULT now(),
   date_updated TIMESTAMPTZ DEFAULT now(),
