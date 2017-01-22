@@ -65,7 +65,7 @@ CREATE TABLE symbols (
 CREATE TABLE symbol_comments (
   id SERIAL PRIMARY KEY,
   symbol_id INTEGER REFERENCES symbols(id) NOT NULL,
-  user_id REFERENCES users(id) NOT NULL,
+  user_id BIGINT REFERENCES users(id) NOT NULL,
   comment TEXT NOT NULL,
   upvotes INTEGER DEFAULT 1,
   downvotes INTEGER DEFAULT 0,
@@ -88,8 +88,8 @@ CREATE TABLE commodities (
 
 CREATE TABLE commodity_comments (
   id SERIAL PRIMARY KEY,
-  symbol_id REFERENCES symbols(id) NOT NULL,
-  user_id REFERENCES users(id) NOT NULL,
+  symbol_id INTEGER REFERENCES commodities(id) NOT NULL,
+  user_id BIGINT REFERENCES users(id) NOT NULL,
   comment TEXT NOT NULL,
   upvotes INTEGER DEFAULT 1,
   downvotes INTEGER DEFAULT 0,
