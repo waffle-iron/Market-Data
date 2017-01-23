@@ -9,17 +9,15 @@ import NavMobile from './NavMobile'
 import Style from '../styles/components/NavBar'
 
 const NavBar = (props) => {
-  console.log(props.user)
-  const username = props.loggedIn ? props.user : ''
-
+  const home = props.loggedIn ? '/home' : '/'
   return (
     <nav className='blue-grey lighten-4' role='navigation'>
       <div className='nav-wrapper container'>
         <Link id='logo-container' to='/' className='brand-logo'>
           <i className='material-icons'>polymer</i>
         </Link>
-        <NavDesktop loggedIn={props.loggedIn} user={username} logout={props.logout} onClick={props.onClick} />
-        <NavMobile loggedIn={props.loggedIn} user={username} logout={props.logout} onClick={props.onClick} />
+        <NavDesktop loggedIn={props.loggedIn} logout={props.logout} onClick={props.onClick} />
+        <NavMobile loggedIn={props.loggedIn} logout={props.logout} onClick={props.onClick} />
       </div>
     </nav>
   )

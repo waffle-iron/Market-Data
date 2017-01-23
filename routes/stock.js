@@ -1,5 +1,6 @@
 const express = require('express')
 const bhttp = require('bhttp')
+const Promise = require('bluebird')
 const router = express.Router()
 
 module.exports = (knex) => {
@@ -19,24 +20,109 @@ module.exports = (knex) => {
   })
 
   router.post('/watch/:symbol', (req, res) => {
+    console.log('Trying to watch:', req.params.symbol)
     if (req.session.userID) {
-      res.send('You are now watching:', req.params.symbol)
+      Promise.try(() => {
+        return knex('watchlists')
+          .where({
+            user_id: req.session.userID,
+            date_deleted: null
+          })
+          .select('id')
+      }).then(data => {
+        const { id } = data[0]
+        return knex('watchlist_stocks')
+          .returning(['symbol'])
+          .insert({
+            symbol: req.params.symbol,
+            user_id: req.session.userID,
+            watchlist_id: id
+          })
+      }).then(data => {
+        const { symbol } = data[0]
+        console.log(data)
+        res.send('You are now watching', symbol)
+      })
     } else {
       res.status(401).send('Not Authorized')
     }
   })
 
-  router.post('/buy/:symbol', (req, res) => {
+  router.post('/buy', (req, res) => {
     if (req.session.userID) {
-      res.send('You just bought:', req.params.symbol)
+      const { name, shares, symbol, price } = req.body
+      console.log('Buying Symbol...')
+      console.log(req.body)
+      Promise.try(() => {
+        return knex('portfolios')
+          .where({
+            user_id: req.session.userID,
+            date_deleted: null
+          })
+      }).then(data => {
+        const { id, funds } = data[0]
+        return knex('portfolio_stocks')
+          .returning(['portfolio_id'])
+          .insert({
+            symbol,
+            shares,
+            price,
+            user_id: req.session.userID,
+            portfolio_id: id,
+            company_name: name,
+            action: 'BUY'
+          })
+      }).then(data => {
+        const { portfolio_id } = data[0]
+        return knex('portfolio_stocks')
+          .where({
+            portfolio_id,
+            user_id: req.session.userID,
+            date_deleted: null
+          })
+      }).then(data => {
+        res.status(200).send(data)
+      })
     } else {
       res.status(401).send('Not Authorized')
     }
   })
 
-  router.post('/sell/:symbol', (req, res) => {
+  router.post('/sell', (req, res) => {
     if (req.session.userID) {
-      res.send('You just sold:', req.params.symbol)
+      const { name, shares, symbol, price } = req.body
+      console.log('Selling Symbol...')
+      console.log(req.body)
+      Promise.try(() => {
+        return knex('portfolios')
+          .where({
+            user_id: req.session.userID,
+            date_deleted: null
+          })
+      }).then(data => {
+        const { id, funds } = data[0]
+        return knex('portfolio_stocks')
+          .returning(['portfolio_id'])
+          .insert({
+            symbol,
+            shares,
+            price,
+            user_id: req.session.userID,
+            portfolio_id: id,
+            company_name: name,
+            action: 'SELL'
+          })
+      }).then(data => {
+        const { portfolio_id } = data[0]
+        return knex('portfolio_stocks')
+          .where({
+            portfolio_id,
+            user_id: req.session.userID,
+            date_deleted: null
+          })
+      }).then(data => {
+        res.status(200).send(data)
+      })
     } else {
       res.status(401).send('Not Authorized')
     }

@@ -3,10 +3,9 @@ import { connect } from 'react-redux'
 import { create } from 'guid'
 import CSSModules from 'react-css-modules'
 
-import { getStockQuote } from '../actions/stockActions'
+import { getStockQuote, stockAction } from '../actions/stockActions'
 import { getUserDashboard, logoutUser } from '../actions/userActions'
 
-import Btn from '../atoms/Btn'
 import NavTab from '../atoms/NavTab'
 import Portfolio from '../components/Portfolio'
 import PortfolioSummary from '../components/PortfolioSummary'
@@ -22,9 +21,8 @@ class Dashboard extends Component {
     super(props)
 
     this.state = {
-      loading: true,
-      symbolData: false,
       stockSymbol: '',
+      shares: 0,
       view: 'portfolio'
     }
   }
@@ -32,12 +30,21 @@ class Dashboard extends Component {
     const { dispatch } = this.props
     dispatch(getUserDashboard())
   }
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.dashboard !== this.props.dashboard) {
-      this.setState({
-        loading: false
-      })
+  handleSharesChange = (e) => {
+    this.setState({ shares: e.target.value })
+  }
+  handleStockAction = (e) => {
+    const { dispatch, quoteData } = this.props
+    const { LastPrice, Name, Symbol } = quoteData
+    const data = {
+      name: Name,
+      symbol: Symbol,
+      shares: this.state.shares,
+      price: LastPrice
     }
+    console.log(e.target.name)
+    dispatch(stockAction(e.target.name, data))
+    this.setState({ shares: 0 })
   }
   handleSubmit = (e) => {
     const { stockSymbol } = this.state
@@ -45,18 +52,18 @@ class Dashboard extends Component {
     e.preventDefault()
 
     dispatch(getStockQuote(stockSymbol))
-    this.setState({
-      stockSymbol: ''
-    })
+    this.setState({ stockSymbol: '' })
   }
   render() {
-    const { loading, stockSymbol, symbolData, view } = this.state
-    const { dispatch, dashboard, quoteData } = this.props
+    const { stockSymbol, shares, view } = this.state
+    const { dashboard, isFetching, loggedIn, quoteData } = this.props
     const tabValues = [
       { name: 'Trades', value: 'trades' },
       { name: 'Portfolio', value: 'portfolio' },
       { name: 'Watchlist', value: 'watchlist' }
     ]
+
+    console.log(this.props)
 
     return (
       <div className='container'>
@@ -64,9 +71,9 @@ class Dashboard extends Component {
           <StockForm onSubmit={this.handleSubmit}
             onChange={(e) => this.setState({ stockSymbol: e.target.value.toUpperCase() })}
             value={stockSymbol} />
-          { symbolData ? <StockDetails {...quoteData} /> : '' }
+          { !isFetching && loggedIn ? <StockDetails {...quoteData} onClick={this.handleStockAction} onChange={this.handleSharesChange} value={shares} /> : '' }
         </div>
-        { loading ? 'Loading...' : <PortfolioSummary {...dashboard} /> }
+        { !loggedIn ? '' : <PortfolioSummary {...dashboard} /> }
         <div className='container col s6'>
           <ul className='tabs tabs-fixed-width'>
             { tabValues.map(tab => <NavTab {...tab} key={create().value}
@@ -83,9 +90,9 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { quoteData } = state.stock
-  const { dashboard } = state.user
-  return { dashboard, quoteData }
+  const { isFetching, quoteData } = state.stock
+  const { dashboard, loggedIn } = state.user
+  return { dashboard, isFetching, loggedIn, quoteData }
 }
 
 export default connect(mapStateToProps)(CSSModules(Dashboard, Style))

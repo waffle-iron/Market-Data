@@ -80,6 +80,23 @@ export const logoutUser = () => {
   }
 }
 
+const userAuthSuccess = (payload) => {
+  return { type: 'USER_AUTH_SUCCESS', payload }
+}
+
+const userAuthFail = (error) => {
+  return { type: 'USER_AUTH_FAIL', error }
+}
+
+export const userAuth = () => {
+  const endPoint = '/v1/'
+  return dispatch => {
+    axios.get(endPoint, axiosConfig)
+      .then(response => dispatch(userAuthSuccess(response.data)))
+      .catch(error => dispatch(userAuthFail(error.data)))
+  }
+}
+
 const getUserDashboardSuccess = (payload) => {
   return { type: 'GET_USER_DASHBOARD_SUCCESS', payload }
 }

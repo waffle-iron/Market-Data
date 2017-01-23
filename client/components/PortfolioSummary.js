@@ -18,8 +18,8 @@ const PortfolioSummary = (props) => {
 }
 
 PortfolioSummary.propTypes = {
-  funds: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired
+  funds: PropTypes.string,
+  name: PropTypes.string
 }
 
 export default CSSModules(PortfolioSummary, Style)

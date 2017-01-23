@@ -1,11 +1,6 @@
 import { browserHistory } from 'react-router'
 
-// const { id = null, username = null } = JSON.parse(localStorage.getItem('user'))
-
 const initialState = {
-  // loggedIn: id && username ? true : false,
-  // userID: id,
-  // username: username,
   dashboard: {},
   loggedIn: false,
   userID: '',
@@ -26,6 +21,7 @@ const user = (state = initialState, action) => {
       window.location.assign('/#/dashboard')
 
       return Object.assign({}, state, {
+        loggedIn: true,
         userID: action.payload.userID,
         username: action.payload.username
       })
@@ -33,7 +29,6 @@ const user = (state = initialState, action) => {
       window.location.assign('/')
       return { ...state, error: action.error }
     case 'LOGIN_USER_SUCCESS':
-      localStorage.setItem('user', JSON.stringify(action.payload))
       window.location.assign('/#/dashboard')
 
       return {
@@ -46,7 +41,6 @@ const user = (state = initialState, action) => {
       window.location.assign('/')
       return { ...state, error: action.error }
     case 'LOGOUT_USER_SUCCESS':
-      localStorage.setItem('user', JSON.stringify({ id: '', username: '' }))
       window.location.assign('/')
 
       return {
@@ -57,13 +51,17 @@ const user = (state = initialState, action) => {
       }
     case 'LOGOUT_USER_FAIL':
       return { ...state, error: action.error }
+    case 'USER_AUTH_SUCCESS':
+      return { ...state, loggedIn: true }
+    case 'USER_AUTH_FAIL':
+      return { ...state, loggedIn: false }
     case 'GET_USER_DASHBOARD_SUCCESS':
       return {
         ...state,
         dashboard: action.payload
       }
     case 'GET_USER_DASHBOARD_FAIL':
-      return { ...state, dashboard: null }
+      return { ...state, loggedIn: false }
     default:
       return state
   }

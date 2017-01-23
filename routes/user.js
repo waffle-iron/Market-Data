@@ -67,6 +67,7 @@ module.exports = (knex) => {
   })
 
   router.get('/dashboard', (req, res) => {
+    console.log('Getting dashboard...')
     if (req.session.userID) {
       Promise.try(() => {
         return knex('portfolios')
@@ -78,7 +79,7 @@ module.exports = (knex) => {
         res.status(200).send({ name, funds, private })
       })
     } else {
-      res.status(401).send({ status: false, message: 'Not Authorized' })
+      res.status(401).send({ message: 'Not Authorized' })
     }
   })
 

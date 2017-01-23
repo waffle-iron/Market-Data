@@ -54,7 +54,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     expires: new Date(Date.now() + 3600000), // 1 Hour
-    maxAge: 3600000,
+    maxAge: 3600000
   }
 }))
 
@@ -64,6 +64,15 @@ app.use(express.static(staticPath))
 app.use('/v1/currency', currency)
 app.use('/v1/stock', stock)
 app.use('/v1/user', user)
+
+// Refresh sessions
+app.use('/v1/', (req, res, next) => {
+  if (req.session.userID) {
+    res.status(200).send()
+  } else {
+    res.status(401).send()
+  }
+})
 
 // Server-side rendering for React
 app.get('*', (req, res) => {

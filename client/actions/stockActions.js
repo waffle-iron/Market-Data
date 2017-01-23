@@ -10,7 +10,7 @@ export const isFetching = (bool) => {
 }
 
 const getStockQuoteSuccess = (payload) => {
-  return { type: 'GET_STOCK_QUOTE', payload }
+  return { type: 'GET_STOCK_QUOTE_SUCCESS', payload }
 }
 
 const getStockQuoteFail = (error) => {
@@ -55,11 +55,11 @@ const stockActionFail = (action, error) => {
   return { type: `${stockAction}_STOCK_SYMBOL_FAIL`, error }
 }
 
-const stockAction = (action, symbol) => {
-  const endPoint = `/v1/stock/${action}/${symbol}`
+export const stockAction = (action, data) => {
+  const endPoint = `/v1/stock/${action}`
 
   return dispatch => {
-    axios.post(endPoint, symbol, axiosConfig)
+    axios.post(endPoint, data, axiosConfig)
       .then(response => dispatch(stockActionSuccess(action, response.data)))
       .catch(error => dispatch(stockActionFail(action, error.data)))
   }

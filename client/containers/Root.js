@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Modal from 'boron/FlyModal'
 import CSSModules from 'react-css-modules'
 
-import { logoutUser } from '../actions/userActions'
+import { logoutUser, userAuth } from '../actions/userActions'
 
 import Login from './Login'
 import SignUp from './SignUp'
@@ -19,6 +19,10 @@ class Root extends Component {
     this.state = {
       modal: ''
     }
+  }
+  componentDidMount() {
+    const { dispatch } = this.props
+    dispatch(userAuth())
   }
   handleClick = (e) => {
     this.setState({
