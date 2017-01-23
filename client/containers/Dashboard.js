@@ -36,6 +36,9 @@ class Dashboard extends Component {
   handleStockAction = (e) => {
     const { dispatch, quoteData } = this.props
     const { LastPrice, Name, Symbol } = quoteData
+
+    if (this.state.shares < 1) return alert('Must buy at least one share')
+
     const data = {
       name: Name,
       symbol: Symbol,
@@ -58,9 +61,9 @@ class Dashboard extends Component {
     const { stockSymbol, shares, view } = this.state
     const { dashboard, isFetching, loggedIn, quoteData } = this.props
     const tabValues = [
-      { name: 'Trades', value: 'trades' },
-      { name: 'Portfolio', value: 'portfolio' },
-      { name: 'Watchlist', value: 'watchlist' }
+      { title: 'Trades', name: 'trades' },
+      { title: 'Portfolio', name: 'portfolio' },
+      { title: 'Watchlist', name: 'watchlist' }
     ]
 
     console.log(this.props)
@@ -77,8 +80,8 @@ class Dashboard extends Component {
         <div className='container col s6'>
           <ul className='tabs tabs-fixed-width'>
             { tabValues.map(tab => <NavTab {...tab} key={create().value}
-                onClick={(e) => this.setState({ view: e.target.value })}
-                isActive={view === tab.value} />) }
+                onClick={(e) => this.setState({ view: e.target.name })}
+                isActive={view === tab.name} />) }
           </ul>
         </div>
         <div>
