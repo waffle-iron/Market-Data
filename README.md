@@ -6,7 +6,7 @@
 2. Run `npm install`
 3. Run `npm run development` for the dev environment
 4. Run `npm run production` to generate a static file build in the `/static` directory
-5. `npm test` to run unit tests (which aren't set up yet)
+5. `npm test` to run unit tests
 
 ## Back-End Development Environment Setup
 
@@ -15,8 +15,9 @@
 3. Run `vagrant up` within the project's root directory
 4. Run `vagrant provision` to run the provision script again **ONLY** if you have modified it
 5. Follow the commands printed out by the provision script
-6. Run `npm start` to get the Node server running whilst connected to the PostgreSQL database
-7. Hack the planet
+6. Install argon2 using the following steps found here: https://www.npmjs.com/package/argon2#before-installing
+7. Run `npm start` to get the Node server running whilst connected to the PostgreSQL database
+8. Hack the planet
 
 ## Recommended Development Tools
 
