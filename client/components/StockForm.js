@@ -8,7 +8,7 @@ const StockForm = (props) => {
     <form styleName='root' onSubmit={props.onSubmit}>
       <div className='row'>
         <div className='input-field col s4'>
-          <input className='validate' type='text'
+          <input className='validate' type='text' placeholder='Search symbol here...'
             onChange={props.onChange} value={props.value} />
         </div>
       </div>

@@ -8,9 +8,9 @@ const NavTab = (props) => {
 
   return (
     <li className='tab col s4 blue-grey lighten-5'>
-      <a  className={'blue-grey-text ' + isActive} name={props.name}
+      <a className={'blue-grey-text ' + isActive} name={props.name}
         onClick={props.onClick}>
-        { props.title }
+        { props.name }
       </a>
     </li>
   )
@@ -19,8 +19,7 @@ const NavTab = (props) => {
 NavTab.propTypes = {
   isActive: PropTypes.bool.isRequired,
   onClick: PropTypes.func,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string
+  name: PropTypes.string.isRequired
 }
 
 export default CSSModules(NavTab, Style)

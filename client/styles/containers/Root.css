@@ -102,6 +102,11 @@ a, div, li, p, span {
   box-shadow: 0 1px 0 0 Red;
 }
 
+/* indicator color */
+:global .tabs .indicator {
+  background-color: Grey;
+}
+
 /* icon prefix focus color */
 :global .input-field .prefix.active {
   color: #000;

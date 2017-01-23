@@ -72,9 +72,9 @@ export const logoutUser = () => {
   const endPoint = '/v1/user/logout'
 
   return (dispatch, getState) => {
-    const { userID, username } = getState().user
+    const { username } = getState().user
 
-    axios.post(endPoint, { id: userID, username }, axiosConfig)
+    axios.post(endPoint, { username }, axiosConfig)
       .then(response => dispatch(logoutUserSuccess(response.data)))
       .catch(error => dispatch(logoutUserFail(error.data)))
   }

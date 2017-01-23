@@ -59,14 +59,8 @@ class Dashboard extends Component {
   }
   render() {
     const { stockSymbol, shares, view } = this.state
-    const { dashboard, isFetching, loggedIn, quoteData } = this.props
-    const tabValues = [
-      { title: 'Trades', name: 'trades' },
-      { title: 'Portfolio', name: 'portfolio' },
-      { title: 'Watchlist', name: 'watchlist' }
-    ]
-
-    console.log(this.props)
+    const { dashboard, isFetching, loggedIn, portfolioItems, quoteData } = this.props
+    const tabValues = ['trades', 'portfolio', 'watchlist']
 
     return (
       <div className='container'>
@@ -79,13 +73,13 @@ class Dashboard extends Component {
         { !loggedIn ? '' : <PortfolioSummary {...dashboard} /> }
         <div className='container col s6'>
           <ul className='tabs tabs-fixed-width'>
-            { tabValues.map(tab => <NavTab {...tab} key={create().value}
+            { tabValues.map(tab => <NavTab key={create().value} name={tab}
                 onClick={(e) => this.setState({ view: e.target.name })}
-                isActive={view === tab.name} />) }
+                isActive={view === tab} />) }
           </ul>
         </div>
         <div>
-          { view === 'portfolio' ? <Portfolio /> : (view === 'trades' ? <PreviousTrades /> : <Watchlist />) }
+          { view === 'portfolio' ? <Portfolio data={portfolioItems} /> : (view === 'trades' ? <PreviousTrades /> : <Watchlist />) }
         </div>
       </div>
     )
@@ -93,9 +87,9 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { isFetching, quoteData } = state.stock
+  const { isFetching, portfolioItems, quoteData } = state.stock
   const { dashboard, loggedIn } = state.user
-  return { dashboard, isFetching, loggedIn, quoteData }
+  return { dashboard, isFetching, loggedIn, portfolioItems, quoteData }
 }
 
 export default connect(mapStateToProps)(CSSModules(Dashboard, Style))
