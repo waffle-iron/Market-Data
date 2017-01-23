@@ -11,7 +11,7 @@
 ## Back-End Development Environment Setup
 
 1. Download Vagrant: https://www.vagrantup.com/downloads.html
-2. Set up a Debian box with VirtualBox as the provider: https://atlas.hashicorp.com/debian/boxes/jessie64
+2. Download VirtualBox: https://www.virtualbox.org/wiki/Downloads
 3. Run `vagrant up` within the project's root directory
 4. Run `vagrant provision` to run the provision script again **ONLY** if you have modified it
 5. Follow the commands printed out by the provision script
